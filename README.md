@@ -63,8 +63,9 @@ The app is a static bundle, so it can be hosted on any static host or CDN. `vite
 
 ### GitHub Pages
 
-1. `npm run build`
-2. Publish the contents of `dist/` to your Pages source (for example, push `dist/` to a `gh-pages` branch, or use a GitHub Actions workflow that runs `npm ci && npm run build` and uploads `dist/` as the Pages artifact).
+The live app is published at [alephnan.github.io/flowfield](https://alephnan.github.io/flowfield/).
+
+Every successful push to `main` builds the app and deploys `dist/` through GitHub Actions. Pull requests run the build validation only, so they cannot publish the site.
 
 Because `base` is already relative, the site works whether it is served from `user.github.io/` or `user.github.io/repo-name/`.
 
