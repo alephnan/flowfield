@@ -22,6 +22,7 @@ const WEBGPU_TIER: Tier = {
   trailT: 64,
   trailCount: 65536,
   bloomAllowed: true,
+  dprCap: 2,
 };
 
 const WEBGL2_TIER: Tier = {
@@ -31,7 +32,39 @@ const WEBGL2_TIER: Tier = {
   trailT: 32,
   trailCount: 16384,
   bloomAllowed: false,
+  dprCap: 2,
 };
+
+// Mobile bottleneck is fill rate (overdraw of additive-blended sprites), so
+// the DPR cap and disabled bloom matter more than the particle count itself.
+// Powerful tablets (M-series iPads) land here too; ?forceDesktop overrides.
+const WEBGPU_MOBILE_TIER: Tier = {
+  name: 'webgpu',
+  maxParticles: 262144,
+  defaultParticles: 65536,
+  trailT: 32,
+  trailCount: 16384,
+  bloomAllowed: false,
+  dprCap: 1.5,
+};
+
+const WEBGL2_MOBILE_TIER: Tier = {
+  name: 'webgl2',
+  maxParticles: 65536,
+  defaultParticles: 65536,
+  trailT: 32,
+  trailCount: 8192,
+  bloomAllowed: false,
+  dprCap: 1.5,
+};
+
+/** Coarse primary pointer + real touch points ⇒ phone/tablet. */
+function detectMobile(): boolean {
+  const q = new URLSearchParams(location.search);
+  if (q.has('forceMobile')) return true;
+  if (q.has('forceDesktop')) return false;
+  return window.matchMedia('(pointer: coarse)').matches && navigator.maxTouchPoints > 0;
+}
 
 export class App {
   readonly renderer: THREE.WebGPURenderer;
@@ -304,7 +337,10 @@ export class App {
 async function boot() {
   const forceWebGL = new URLSearchParams(location.search).has('forceWebGL');
   const hasWebGPU = 'gpu' in navigator && !forceWebGL;
-  const tier = hasWebGPU ? WEBGPU_TIER : WEBGL2_TIER;
+  const mobile = detectMobile();
+  const tier = hasWebGPU
+    ? (mobile ? WEBGPU_MOBILE_TIER : WEBGPU_TIER)
+    : (mobile ? WEBGL2_MOBILE_TIER : WEBGL2_TIER);
 
   // No MSAA: additive soft-falloff sprites gain nothing from it, and 4×
   // multisampling multiplies the cost of the heaviest (blending) pass.
@@ -314,8 +350,9 @@ async function boot() {
     antialias: false,
     forceWebGL,
     trackTimestamp: hasWebGPU,
+    powerPreference: 'high-performance',
   });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, tier.dprCap));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   await renderer.init();
 
@@ -354,6 +391,7 @@ async function boot() {
     trailDensity: 1,
     ...shared.render,
   };
+  renderSettings.trailLength = Math.min(renderSettings.trailLength, tier.trailT);
 
   const app = new App(renderer, tier, system, simSettings, renderSettings);
 

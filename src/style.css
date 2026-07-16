@@ -10,10 +10,16 @@ body,
   width: 100%;
   height: 100%;
   overflow: hidden;
+  overscroll-behavior: none;
   background: #060608;
   color: #cfd2d8;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   font-size: 13px;
+}
+
+#app {
+  height: 100vh;
+  height: 100dvh; /* track the dynamic viewport (mobile URL bar) where supported */
 }
 
 #canvas-container {
@@ -25,12 +31,17 @@ body,
   display: block;
   width: 100%;
   height: 100%;
+  /* Hand all gestures to OrbitControls; stop browser pan/pinch/double-tap zoom. */
+  touch-action: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 #hud {
   position: absolute;
-  left: 12px;
-  bottom: 10px;
+  left: max(12px, env(safe-area-inset-left));
+  bottom: max(10px, env(safe-area-inset-bottom));
   padding: 6px 10px;
   background: rgba(10, 10, 14, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -45,8 +56,8 @@ body,
 
 #system-bar {
   position: absolute;
-  left: 12px;
-  top: 12px;
+  left: max(12px, env(safe-area-inset-left));
+  top: max(12px, env(safe-area-inset-top));
   display: flex;
   gap: 8px;
   align-items: center;
@@ -139,7 +150,7 @@ body,
 #toast {
   position: absolute;
   left: 50%;
-  bottom: 40px;
+  bottom: calc(40px + env(safe-area-inset-bottom));
   transform: translateX(-50%);
   padding: 8px 16px;
   background: rgba(20, 22, 30, 0.92);
@@ -162,4 +173,92 @@ body.paper-mode #hud {
   background: rgba(255, 255, 255, 0.6);
   border-color: rgba(0, 0, 0, 0.1);
   color: #333;
+}
+
+#panel-toggle {
+  display: none;
+}
+
+#info-panel .info-close {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  /* Control panel becomes a hidden-by-default bottom sheet. */
+  #panel-container {
+    display: none;
+    top: auto;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: auto;
+    max-height: 60vh;
+    max-height: 60dvh;
+    padding-bottom: env(safe-area-inset-bottom);
+    background: rgba(10, 10, 14, 0.92);
+  }
+
+  body.panel-open #panel-container {
+    display: block;
+  }
+
+  #panel-toggle {
+    display: block;
+    position: absolute;
+    right: max(10px, env(safe-area-inset-right));
+    top: max(10px, env(safe-area-inset-top));
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    background: rgba(14, 14, 20, 0.8);
+    color: #dfe2e8;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  /* Full-width overlay: the desktop max-width math collapses on a phone. */
+  #info-panel {
+    left: 8px;
+    right: 8px;
+    width: auto;
+    max-width: none;
+    max-height: calc(100dvh - 140px);
+  }
+
+  /* The wrapped system bar can sit under the panel, hiding the ⓘ toggle —
+     sticky+float keeps this close button pinned top-right while scrolling. */
+  #info-panel .info-close {
+    display: block;
+    position: sticky;
+    top: 0;
+    float: right;
+    width: 40px;
+    height: 40px;
+    margin: -6px -8px 0 8px;
+    font-size: 22px;
+    line-height: 1;
+    background: rgba(14, 14, 20, 0.8);
+    color: #dfe2e8;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  /* Wrap under the gear button; 16px stops iOS auto-zoom on select focus. */
+  #system-bar {
+    flex-wrap: wrap;
+    right: 64px;
+  }
+
+  #system-bar select,
+  #system-bar button {
+    font-size: 16px;
+    padding: 8px 10px;
+  }
+
+  body.panel-open #toast {
+    bottom: calc(60dvh + 12px);
+  }
 }

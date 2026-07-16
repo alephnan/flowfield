@@ -72,7 +72,7 @@ export class RenderController {
   private trailDensityCur = 1;
 
   /** DPR cap the app renders at when resolutionScale is 1. */
-  readonly baseRatio = Math.min(window.devicePixelRatio, 2);
+  readonly baseRatio: number;
 
   private post?: THREE.PostProcessing;
   private bloomNode?: ReturnType<typeof bloom>;
@@ -86,6 +86,7 @@ export class RenderController {
     this.renderer = renderer;
     this.tier = tier;
     this.trailT = tier.trailT;
+    this.baseRatio = Math.min(window.devicePixelRatio, tier.dprCap);
 
     this.camera = new THREE.PerspectiveCamera(50, 1, 0.01, 5000);
     this.controls = new OrbitControls(this.camera, renderer.domElement);
@@ -491,8 +492,12 @@ export class RenderController {
   async screenshot() {
     const prevRatio = this.renderer.getPixelRatio();
     // 2× of the UNSCALED dpr — screenshots stay crisp even when adaptive
-    // quality has lowered the live resolution.
-    this.renderer.setPixelRatio(this.baseRatio * 2);
+    // quality has lowered the live resolution. Clamped so the framebuffer's
+    // long side stays under the common mobile texture-size limit of 4096.
+    const el = this.renderer.domElement;
+    this.renderer.setPixelRatio(
+      Math.min(this.baseRatio * 2, 4096 / Math.max(el.clientWidth, el.clientHeight)),
+    );
     this.renderFrame();
     const url = this.renderer.domElement.toDataURL('image/png');
     this.renderer.setPixelRatio(prevRatio);

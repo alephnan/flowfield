@@ -115,4 +115,5 @@ export interface Tier {
   trailT: number; // allocated ring-buffer length
   trailCount: number; // how many particles get trails
   bloomAllowed: boolean;
+  dprCap: number; // devicePixelRatio ceiling
 }

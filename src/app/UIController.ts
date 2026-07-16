@@ -18,8 +18,22 @@ export class UIController {
     this.infoPanel = document.getElementById('info-panel')!;
     this.toastEl = document.getElementById('toast')!;
     this.buildSystemBar();
+    this.buildPanelToggle();
     this.bindSeeding();
     this.bindKeyboard();
+  }
+
+  /** Gear button that opens the control panel as a bottom sheet; CSS hides it on desktop. */
+  private buildPanelToggle() {
+    const btn = document.createElement('button');
+    btn.id = 'panel-toggle';
+    btn.textContent = '⚙';
+    btn.title = 'Controls';
+    btn.setAttribute('aria-label', 'Toggle control panel');
+    btn.addEventListener('click', () => {
+      document.body.classList.toggle('panel-open');
+    });
+    document.getElementById('app')!.appendChild(btn);
   }
 
   private buildSystemBar() {
@@ -101,11 +115,17 @@ export class UIController {
       })
       .join('');
     const refs = (sys.references ?? []).map((r) => `<div>· ${r}</div>`).join('');
+    // Close button is mobile-only (CSS): the wrapped system bar can end up
+    // underneath the panel there, hiding the ⓘ toggle.
     this.infoPanel.innerHTML =
+      `<button class="info-close" aria-label="Close info panel">×</button>` +
       `<h2>${sys.name}</h2>` +
       (eqHtml ? `<div class="equations">${eqHtml}</div>` : '') +
       (sys.notes ? `<p>${sys.notes}</p>` : '') +
       (refs ? `<div class="refs">${refs}</div>` : '');
+    this.infoPanel
+      .querySelector('.info-close')!
+      .addEventListener('click', () => this.infoPanel.classList.add('hidden'));
   }
 
   toast(msg: string) {
