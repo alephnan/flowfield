@@ -13,6 +13,7 @@ export type ParamUniforms = Record<string, ParamUniform>;
 export interface ParamSpec {
   key: string; // "sigma" — used in uniforms map, URL state
   label: string; // "σ" — shown in the panel
+  description?: string;
   default: number;
   min: number;
   max: number;
@@ -56,6 +57,8 @@ export interface SystemDefinition {
   id: string;
   name: string;
   dim: 2 | 3;
+  /** Short, plain-language introduction displayed beside the artwork. */
+  introduction?: string;
   parameters: ParamSpec[];
   /**
    * The vector field f(p, t). Must be pure TSL (no side effects).

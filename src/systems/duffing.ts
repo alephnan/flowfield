@@ -4,9 +4,10 @@ import type { SystemDefinition } from '../types';
 export const duffing: SystemDefinition = {
   id: 'duffing',
   name: 'Duffing (forced)',
+  introduction: 'A driven oscillator, moving between two potential wells.',
   dim: 2,
   parameters: [
-    { key: 'delta', label: 'δ', default: 0.2, min: 0, max: 1, step: 0.005, safe: [0.1, 0.5] },
+    { key: 'delta', label: 'δ', description: 'Damping of the oscillator’s velocity.', default: 0.2, min: 0, max: 1, step: 0.005, safe: [0.1, 0.5] },
     { key: 'alpha', label: 'α', default: -1, min: -2, max: 2, step: 0.01, safe: [-1.5, 1] },
     { key: 'beta', label: 'β', default: 1, min: 0.1, max: 3, step: 0.01, safe: [0.5, 2] },
     { key: 'gamma', label: 'γ', default: 0.3, min: 0, max: 1, step: 0.005, safe: [0.1, 0.65] },

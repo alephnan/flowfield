@@ -4,6 +4,7 @@ import type { SystemDefinition } from '../types';
 export const dadras: SystemDefinition = {
   id: 'dadras',
   name: 'Dadras',
+  introduction: 'An intricate weave of loops, wings, and returning paths.',
   dim: 3,
   parameters: [
     { key: 'p', label: 'p', default: 3, min: 1, max: 5, step: 0.01, safe: [2, 4] },

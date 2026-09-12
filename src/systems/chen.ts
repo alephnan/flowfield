@@ -4,6 +4,7 @@ import type { SystemDefinition } from '../types';
 export const chen: SystemDefinition = {
   id: 'chen',
   name: 'Chen',
+  introduction: 'Twin scrolls weave a restless, intricate silhouette.',
   dim: 3,
   parameters: [
     { key: 'a', label: 'a', default: 35, min: 20, max: 50, step: 0.1, safe: [30, 42] },

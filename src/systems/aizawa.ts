@@ -4,12 +4,13 @@ import type { SystemDefinition } from '../types';
 export const aizawa: SystemDefinition = {
   id: 'aizawa',
   name: 'Aizawa',
+  introduction: 'A delicate shell, folded around a column of motion.',
   dim: 3,
   parameters: [
     { key: 'a', label: 'a', default: 0.95, min: 0.5, max: 1.2, step: 0.005, safe: [0.7, 1.1] },
     { key: 'b', label: 'b', default: 0.7, min: 0.4, max: 1, step: 0.005, safe: [0.5, 0.9] },
     { key: 'c', label: 'c', default: 0.6, min: 0.3, max: 1, step: 0.005, safe: [0.4, 0.8] },
-    { key: 'd', label: 'd', default: 3.5, min: 1.5, max: 4.5, step: 0.01, safe: [2.5, 4] },
+    { key: 'd', label: 'd', description: 'Rotational coupling between x and y.', default: 3.5, min: 1.5, max: 4.5, step: 0.01, safe: [2.5, 4] },
     { key: 'e', label: 'e', default: 0.25, min: 0, max: 0.5, step: 0.005, safe: [0.1, 0.35] },
     { key: 'f', label: 'f', default: 0.1, min: 0, max: 0.3, step: 0.005, safe: [0, 0.2] },
   ],
@@ -39,6 +40,7 @@ export const aizawa: SystemDefinition = {
   presets: [
     {
       name: 'Classic',
+      description: 'A rounded shell and a twisting central passage. Follow the motion from one to the other.',
       params: { a: 0.95, b: 0.7, c: 0.6, d: 3.5, e: 0.25, f: 0.1 },
     },
     {

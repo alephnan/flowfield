@@ -14,7 +14,8 @@ const num = (v: string | null): number | undefined => {
   return Number.isFinite(n) ? n : undefined;
 };
 const bool = (v: string | null): boolean | undefined => (v === null ? undefined : v === '1');
-const f = (n: number) => parseFloat(n.toPrecision(6)).toString(); // compact floats
+// JS's shortest round-trippable form retains deliberate edits and exact presets.
+const f = (n: number) => String(n);
 
 /** Parse the current location's query string into app state. */
 export function parseURL(): SharedState {
@@ -135,6 +136,11 @@ let debounceTimer: ReturnType<typeof setTimeout> | undefined;
 export function syncURL(query: string) {
   clearTimeout(debounceTimer);
   debounceTimer = setTimeout(() => {
-    history.replaceState(null, '', `${location.pathname}?${query}`);
+    const next = new URLSearchParams(query);
+    const current = new URLSearchParams(location.search);
+    for (const flag of ['forceWebGL', 'forceMobile', 'forceDesktop']) {
+      if (current.has(flag)) next.set(flag, '');
+    }
+    history.replaceState(null, '', `${location.pathname}?${next}`);
   }, 400);
 }

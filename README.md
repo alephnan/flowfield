@@ -1,4 +1,4 @@
-# Flowfield — Strange Attractor Visualizer
+# Flowfield — a gallery for living mathematics
 
 A browser-based visualizer for continuous dynamical systems. Up to ~1,000,000 particles are advected through a vector field (a strange attractor) and integrated **entirely on the GPU**, so you can drag a parameter slider and watch a system slide from a stable fixed point through a limit cycle into chaos in real time, with no frame hitching.
 
@@ -15,12 +15,13 @@ It ships with nine classic attractors (Lorenz, Rössler, Aizawa, Thomas, Halvors
 
 - Vanilla TypeScript (no UI framework), strict mode
 - Three.js `WebGPURenderer` programmed via TSL (Three Shading Language) node system
-- Tweakpane for the control panel, KaTeX for equations
+- Reusable native TypeScript controls, KaTeX for equations
+- Locally bundled Newsreader, IBM Plex Sans, and IBM Plex Mono fonts; licenses in `public/fonts/`
 - Vite for bundling and dev serving
 
 ## Prerequisites
 
-- Node.js 18+ and npm
+- Node.js 20.19+ or 22.12+ and npm (required by the installed Vite version)
 - A browser with WebGPU for the full experience (recent Chrome/Edge). Any WebGL2 browser works on the fallback path.
 
 ## Getting started (development)
@@ -40,7 +41,8 @@ Vite prints a local URL (served with `--host`, so it is also reachable from othe
 |---|---|
 | `npm run dev` | Start the Vite dev server (`vite --host`). |
 | `npm run build` | Typecheck then produce a static build (`tsc --noEmit && vite build`). The typecheck gates the build. |
-| `npm run typecheck` | Run `tsc --noEmit`. This is the only correctness check in the repo — there is no linter and no test suite. |
+| `npm run typecheck` | Run strict TypeScript checks without emitting files. |
+| `npm test` | Run focused Node regression tests for shared URLs, camera framing, and export recovery. |
 | `npm run preview` | Serve the built `dist/` locally (`vite preview --host`). |
 
 ## Building for production
@@ -56,6 +58,16 @@ To verify the production build locally before deploying:
 ```bash
 npm run preview
 ```
+
+## Exploring the gallery
+
+Use **Shape** for presets, exact parameter values, and variations with one-step undo. **Appearance** contains drawing modes, palettes, Dark/Paper canvas treatments, and collapsible Camera and Quality settings. **Mathematics** connects the equations and parameter descriptions, with vector fields and advanced numerical controls.
+
+Playback, restart, speed, and Fit view remain beside the artwork. Share, PNG export (up to 2×, capped at 4096 pixels per edge), and Focus view are in the header or the phone's Menu. Below 1100px, Controls opens a sheet with independent scrolling. Automatic views refit to available space; shared and manually adjusted cameras keep their composition until Fit view is selected.
+
+Rotate by dragging, zoom with the wheel or a pinch, and click/tap the canvas to seed particles. The **How to explore** dialog lists keyboard equivalents. Shortcuts avoid editable controls, and reduced-motion preferences start playback paused. Arrow keys rotate a focused canvas; `+`/`−` zoom it. `Space` toggles playback, `.` steps while paused, `I` opens mathematics, `F` enters Focus view, and `Esc` closes it or the controls.
+
+The interface stores its open tab and panel visibility separately from simulation settings. Existing URL keys remain compatible. New links preserve exact parameter precision and include the camera.
 
 ## Deployment
 
@@ -98,7 +110,15 @@ src/
   app/
     SimulationController.ts    particle buffers + fused GPU integrate kernel
     RenderController.ts        scene, camera, node materials, optional bloom
+    UIController.ts            responsive shell, playback, sharing, feedback
     URLState.ts                app state <-> query string serialization
+    framing.ts                 responsive authored-camera framing
+    capture.ts                 exception-safe export resolution changes
+  ui/
+    controls.ts                accessible native control primitives
+    panel.ts                   Shape / Appearance / Mathematics inspector
+    palettes.ts                static palette previews and color labels
+    hud.ts                     quiet playback status and on-demand diagnostics
   systems/
     registry.ts                the list of systems
     lorenz.ts, rossler.ts, ... one SystemDefinition per attractor

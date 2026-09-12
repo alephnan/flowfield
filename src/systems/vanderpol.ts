@@ -4,9 +4,10 @@ import type { SystemDefinition } from '../types';
 export const vanderpol: SystemDefinition = {
   id: 'vanderpol',
   name: 'Van der Pol',
+  introduction: 'A rhythm of slow curves and sudden, sweeping turns.',
   dim: 2,
   parameters: [
-    { key: 'mu', label: 'μ', default: 1.5, min: 0, max: 6, step: 0.01, safe: [0.1, 4] },
+    { key: 'mu', label: 'μ', description: 'Strength of the nonlinear damping. Larger values produce more pronounced slow and fast phases.', default: 1.5, min: 0, max: 6, step: 0.01, safe: [0.1, 4] },
   ],
   derivative: (p, { mu }) => {
     const dx = p.y;

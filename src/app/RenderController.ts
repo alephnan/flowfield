@@ -22,6 +22,8 @@ import { pass } from 'three/tsl';
 import { bloom } from 'three/addons/tsl/display/BloomNode.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { applyColormap } from '../tsl/colormaps';
+import { responsiveDistance } from './framing';
+import { captureFrame } from './capture';
 import type { RenderSettings, SystemDefinition, Tier, TSLNode } from '../types';
 import type { SimulationController } from './SimulationController';
 
@@ -81,6 +83,9 @@ export class RenderController {
   private pointsSig = '';
   private trailsSig = '';
   private glyphsSig = '';
+  private automaticView = true;
+  private cameraInteracting = false;
+  private framedSystem?: SystemDefinition;
 
   constructor(renderer: THREE.WebGPURenderer, container: HTMLElement, tier: Tier) {
     this.renderer = renderer;
@@ -92,16 +97,22 @@ export class RenderController {
     this.controls = new OrbitControls(this.camera, renderer.domElement);
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.08;
+    this.controls.addEventListener('start', () => { this.cameraInteracting = true; });
+    this.controls.addEventListener('change', () => {
+      if (this.cameraInteracting) this.preserveView();
+    });
+    this.controls.addEventListener('end', () => { this.cameraInteracting = false; });
 
     this.scene.background = new THREE.Color(BG_DARK);
 
     container.appendChild(renderer.domElement);
     const resize = () => {
-      const w = container.clientWidth || window.innerWidth;
-      const h = container.clientHeight || window.innerHeight;
+      const w = Math.max(1, container.clientWidth);
+      const h = Math.max(1, container.clientHeight);
       renderer.setSize(w, h);
       this.camera.aspect = w / h;
       this.camera.updateProjectionMatrix();
+      if (this.automaticView) this.fitAutomaticView();
     };
     resize();
     new ResizeObserver(resize).observe(container);
@@ -141,12 +152,54 @@ export class RenderController {
   }
 
   applyCameraPreset(system: SystemDefinition) {
+    // Consume orbit inertia before restoring the authored composition.
+    const damping = this.controls.enableDamping;
+    this.controls.enableDamping = false;
+    this.controls.update();
+    this.controls.enableDamping = damping;
+    this.framedSystem = system;
+    this.automaticView = true;
     const c = system.defaults.camera;
     this.camera.up.set(...(c.up ?? [0, 1, 0]));
     this.camera.position.set(...c.position);
     this.camera.fov = c.fov ?? 50;
     this.camera.updateProjectionMatrix();
     this.controls.target.set(...c.target);
+    this.controls.update();
+    this.fitAutomaticView();
+  }
+
+  preserveView() {
+    this.automaticView = false;
+  }
+
+  private fitAutomaticView() {
+    if (!this.framedSystem) return;
+    const target = this.controls.target;
+    const direction = this.camera.position.clone().sub(target).normalize();
+    const preset = this.framedSystem.defaults.camera;
+    const referenceDistance = new THREE.Vector3(...preset.position).distanceTo(new THREE.Vector3(...preset.target));
+    const distance = responsiveDistance(referenceDistance, this.camera.aspect);
+    this.camera.position.copy(target).addScaledVector(direction, distance);
+    this.controls.update();
+  }
+
+  /** Keyboard equivalents for orbit/zoom, using the camera's own up axis. */
+  adjustView(key: string) {
+    this.preserveView();
+    const offset = this.camera.position.clone().sub(this.controls.target);
+    const toY = new THREE.Quaternion().setFromUnitVectors(this.camera.up, new THREE.Vector3(0, 1, 0));
+    offset.applyQuaternion(toY);
+    const spherical = new THREE.Spherical().setFromVector3(offset);
+    if (key === 'ArrowLeft') spherical.theta -= 0.12;
+    if (key === 'ArrowRight') spherical.theta += 0.12;
+    if (key === 'ArrowUp') spherical.phi -= 0.12;
+    if (key === 'ArrowDown') spherical.phi += 0.12;
+    if (key === '+' || key === '=') spherical.radius *= 0.9;
+    if (key === '-') spherical.radius *= 1.1;
+    spherical.makeSafe();
+    offset.setFromSpherical(spherical).applyQuaternion(toY.invert());
+    this.camera.position.copy(this.controls.target).add(offset);
     this.controls.update();
   }
 
@@ -490,18 +543,17 @@ export class RenderController {
   }
 
   async screenshot() {
-    const prevRatio = this.renderer.getPixelRatio();
     // 2× of the UNSCALED dpr — screenshots stay crisp even when adaptive
     // quality has lowered the live resolution. Clamped so the framebuffer's
     // long side stays under the common mobile texture-size limit of 4096.
     const el = this.renderer.domElement;
-    this.renderer.setPixelRatio(
-      Math.min(this.baseRatio * 2, 4096 / Math.max(el.clientWidth, el.clientHeight)),
+    const url = captureFrame(
+      this.renderer,
+      Math.min(this.baseRatio * 2, 4096 / Math.max(1, el.clientWidth, el.clientHeight)),
+      () => this.renderFrame(),
+      () => el.toDataURL('image/png'),
     );
-    this.renderFrame();
-    const url = this.renderer.domElement.toDataURL('image/png');
-    this.renderer.setPixelRatio(prevRatio);
-    this.renderFrame();
+    if (!url.startsWith('data:image/png')) throw new Error('The browser could not capture this view.');
     const a = document.createElement('a');
     a.href = url;
     a.download = `flowfield-${this.sim.system.id}-${Date.now()}.png`;

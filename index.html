@@ -4,16 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>flowfield — dynamical systems visualizer</title>
+    <meta name="description" content="A gallery for living mathematics. Explore nine dynamical systems, shape their motion, and make something unexpected." />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
     <div id="app">
-      <div id="canvas-container"></div>
-      <div id="hud"></div>
-      <div id="system-bar"></div>
-      <div id="panel-container"></div>
-      <div id="info-panel" class="hidden"></div>
-      <div id="toast" class="hidden"></div>
+      <header id="header" class="app-header">
+        <a class="wordmark" href="./" aria-label="Flowfield home"><span class="brand-mark" aria-hidden="true">ƒ</span>flowfield<span class="brand-period">.</span></a>
+        <span class="brand-description">A gallery for living mathematics</span>
+        <div id="system-bar"></div>
+        <nav id="header-actions" aria-label="Artwork actions"></nav>
+      </header>
+      <div id="workspace">
+        <main id="stage" aria-label="Interactive artwork">
+          <div class="artwork-heading">
+            <div><p class="eyebrow" id="system-index">DYNAMICAL SYSTEMS</p><h1 id="artwork-title">Living mathematics</h1></div>
+            <p id="artwork-description">A little order. A little chaos.</p>
+          </div>
+          <div id="canvas-container">
+            <div id="startup" role="status"><span class="loading-orbit" aria-hidden="true"></span><p>Setting things in motion<span>Preparing your field of possibilities…</span></p></div>
+          </div>
+          <div class="artwork-meta"><div id="color-legend" aria-label="Color legend"></div><button id="help-button" class="text-button" type="button">How to explore <span aria-hidden="true">↗</span></button></div>
+          <div id="transport" role="group" aria-label="Playback and view controls"><div id="playback-controls"></div><div id="hud"></div><div id="view-controls"></div></div>
+        </main>
+        <aside id="panel-container" aria-label="Exploration controls">
+          <div class="inspector-heading"><div><p class="eyebrow">YOUR EXPLORATION</p><h2>Make it your own.</h2></div><button id="close-inspector" class="icon-button" type="button" aria-label="Close controls">×</button></div>
+          <div id="inspector-tabs"></div>
+          <div id="inspector-content"></div>
+          <div class="inspector-footnote"><span aria-hidden="true">∂</span> Small changes. Unexpected worlds.</div>
+        </aside>
+      </div>
+      <div id="focus-controls" hidden></div>
+      <div id="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+      <dialog id="help-dialog" aria-labelledby="help-title"><div class="dialog-heading"><div><p class="eyebrow">A LITTLE GUIDANCE</p><h2 id="help-title">Follow your curiosity.</h2></div><button class="icon-button dialog-close" type="button" aria-label="Close help">×</button></div><p>Each point follows a mathematical rule. Change a parameter, and watch a new form emerge.</p><dl class="help-list"><div><dt>Rotate the view</dt><dd>Drag with one finger or the mouse.</dd></div><div><dt>Move closer</dt><dd>Pinch or scroll to zoom.</dd></div><div><dt>Add a little motion</dt><dd>Click or tap the artwork to seed a burst of particles.</dd></div><div><dt>Use the keyboard</dt><dd><kbd>Space</kbd> play / pause · <kbd>.</kbd> step while paused · <kbd>I</kbd> mathematics · <kbd>F</kbd> focus view · <kbd>Esc</kbd> close.<br>Focus the artwork, then use arrow keys to rotate and <kbd>+</kbd> / <kbd>−</kbd> to zoom.</dd></div></dl><p class="dialog-note">Presets are starting points. Explore variation stays within the system’s suggested parameter ranges; Undo brings you back.</p></dialog>
+      <dialog id="share-dialog" aria-labelledby="share-title"><div class="dialog-heading"><div><p class="eyebrow">KEEP THE DISCOVERY</p><h2 id="share-title">Share this view.</h2></div><button class="icon-button dialog-close" type="button" aria-label="Close share dialog">×</button></div><p>Automatic copying isn’t available. Select and copy this link to keep the system, appearance, and camera view.</p><label class="field-label" for="share-url">Link to this artwork</label><textarea id="share-url" rows="4" readonly></textarea><button id="select-share-link" class="button primary" type="button">Select link</button></dialog>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

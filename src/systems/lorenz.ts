@@ -4,11 +4,12 @@ import type { SystemDefinition } from '../types';
 export const lorenz: SystemDefinition = {
   id: 'lorenz',
   name: 'Lorenz',
+  introduction: 'Two wings. One endlessly unfolding path through chaos.',
   dim: 3,
   parameters: [
-    { key: 'sigma', label: 'σ', default: 10, min: 0, max: 30, step: 0.1, safe: [5, 20] },
-    { key: 'rho', label: 'ρ', default: 28, min: 0, max: 60, step: 0.1, safe: [5, 45] },
-    { key: 'beta', label: 'β', default: 8 / 3, min: 0.1, max: 10, step: 0.01, safe: [1, 5] },
+    { key: 'sigma', label: 'σ', description: 'Sets how quickly x responds to the difference between y and x.', default: 10, min: 0, max: 30, step: 0.1, safe: [5, 20] },
+    { key: 'rho', label: 'ρ', description: 'Controls the x contribution to the y equation. Its effect depends on the other parameters.', default: 28, min: 0, max: 60, step: 0.1, safe: [5, 45] },
+    { key: 'beta', label: 'β', description: 'Sets the linear decay rate of z.', default: 8 / 3, min: 0.1, max: 10, step: 0.01, safe: [1, 5] },
   ],
   derivative: (p, { sigma, rho, beta }) => {
     const dx = sigma.mul(p.y.sub(p.x));

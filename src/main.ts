@@ -1,4 +1,9 @@
 import * as THREE from 'three/webgpu';
+import '@fontsource/newsreader/latin-400.css';
+import '@fontsource/newsreader/latin-400-italic.css';
+import '@fontsource/ibm-plex-sans/latin-400.css';
+import '@fontsource/ibm-plex-sans/latin-500.css';
+import '@fontsource/ibm-plex-mono/latin-400.css';
 import { SimulationController } from './app/SimulationController';
 import { RenderController } from './app/RenderController';
 import { UIController } from './app/UIController';
@@ -79,6 +84,7 @@ export class App {
   panel!: PanelHandle;
 
   private stepRequested = false;
+  private variationUndo?: Record<string, number>;
 
   // ── Adaptive quality ──────────────────────────────────────────────────────
   private emaMs = 16.7;
@@ -142,14 +148,20 @@ export class App {
 
   syncURL() {
     syncURL(
-      buildQuery(this.system.id, this.paramValues(), this.simSettings, this.renderSettings),
+      buildQuery(this.system.id, this.paramValues(), this.simSettings, this.renderSettings, {
+        position: this.render.camera.position.toArray(),
+        target: this.render.controls.target.toArray(),
+        fov: this.render.camera.fov,
+      }),
     );
   }
 
   setSystem(id: string) {
+    this.variationUndo = undefined;
     this.system = getSystem(id);
     this.sim.setSystem(this.system);
     this.simSettings.dt = this.system.defaults.dt;
+    this.sim.dtU.value = this.simSettings.dt;
     this.render.onSystemChanged(this.system);
     this.ui.onSystemChanged();
     this.panel.rebuildParams();
@@ -158,39 +170,81 @@ export class App {
   }
 
   setParam(key: string, value: number) {
+    this.variationUndo = undefined;
     this.sim.setParam(key, value);
-    this.ui.syncPresetSelection();
+    this.panel.refresh();
     this.syncURL();
   }
 
   applyPreset(preset: NamedParamSet) {
+    this.variationUndo = undefined;
     for (const [k, v] of Object.entries(preset.params)) this.sim.setParam(k, v);
     this.panel.refresh();
-    this.ui.syncPresetSelection();
     this.syncURL();
-    if (preset.description) this.ui.toast(preset.description);
   }
 
   randomizeParams() {
+    this.variationUndo = this.paramValues();
     for (const spec of this.system.parameters) {
       const [lo, hi] = spec.safe ?? [spec.min, spec.max];
       this.sim.setParam(spec.key, lo + Math.random() * (hi - lo));
     }
     this.panel.refresh();
-    this.ui.syncPresetSelection();
     this.syncURL();
   }
 
   resetParams() {
+    this.variationUndo = undefined;
     for (const spec of this.system.parameters) this.sim.setParam(spec.key, spec.default);
     this.panel.refresh();
-    this.ui.syncPresetSelection();
+    this.syncURL();
+  }
+
+  get canUndoVariation(): boolean { return this.variationUndo !== undefined; }
+
+  undoVariation() {
+    if (!this.variationUndo) return;
+    for (const [key, value] of Object.entries(this.variationUndo)) this.sim.setParam(key, value);
+    this.variationUndo = undefined;
+    this.panel.refresh();
+    this.syncURL();
+  }
+
+  presetIndex(): number {
+    const values = this.paramValues();
+    return (this.system.presets ?? []).findIndex(preset =>
+      Object.entries(preset.params).every(([key, value]) => Math.abs(values[key] - value) < 1e-9),
+    );
+  }
+
+  setSimulationSetting(key: 'dt' | 'substeps' | 'timeScale', value: number) {
+    this.simSettings[key] = value;
+    this.sim.dtU.value = this.simSettings.dt;
+    this.sim.substepsU.value = this.simSettings.substeps;
+    this.sim.timeScaleU.value = this.simSettings.timeScale;
+    this.panel.refresh();
+    this.ui.refresh();
+    this.syncURL();
+  }
+
+  setRenderSetting<K extends keyof RenderSettings>(key: K, value: RenderSettings[K]) {
+    this.renderSettings[key] = value;
+    this.applyRenderSettings();
+    this.panel.refresh();
+    this.ui.refresh();
+  }
+
+  fitView() {
+    this.render.controls.autoRotate = false;
+    this.render.applyCameraPreset(this.system);
+    this.panel.refresh();
     this.syncURL();
   }
 
   setIntegrator(id: IntegratorId) {
     this.simSettings.integrator = id;
     this.sim.setIntegrator(id);
+    this.panel.refresh();
     this.syncURL();
   }
 
@@ -288,10 +342,11 @@ export class App {
   togglePause() {
     this.simSettings.paused = !this.simSettings.paused;
     this.panel.refresh();
+    this.ui.refresh();
   }
 
   stepOnce() {
-    this.stepRequested = true;
+    if (this.simSettings.paused) this.stepRequested = true;
   }
 
   reset() {
@@ -299,25 +354,27 @@ export class App {
     this.render.resetTrails();
   }
 
-  screenshot() {
-    void this.render.screenshot();
+  screenshot(): Promise<void> {
+    return this.render.screenshot();
   }
 
-  copyLink() {
-    const query = buildQuery(this.system.id, this.paramValues(), this.simSettings, {
-      ...this.renderSettings,
+  shareableLink(): string {
+    const query = buildQuery(this.system.id, this.paramValues(), this.simSettings, this.renderSettings, {
+      position: this.render.camera.position.toArray(),
+      target: this.render.controls.target.toArray(),
+      fov: this.render.camera.fov,
     });
-    const cam = this.render.camera;
-    const target = this.render.controls.target;
-    const full =
-      `${location.origin}${location.pathname}?${query}` +
-      `&cam=${[...cam.position.toArray(), ...target.toArray(), cam.fov]
-        .map((v) => parseFloat(v.toPrecision(5)))
-        .join(',')}`;
-    navigator.clipboard
-      .writeText(full)
-      .then(() => this.ui.toast('Link copied'))
-      .catch(() => this.ui.toast(full));
+    return `${location.origin}${location.pathname}?${query}`;
+  }
+
+  async copyLink(): Promise<void> {
+    const link = this.shareableLink();
+    try {
+      await navigator.clipboard.writeText(link);
+      this.ui.toast('Link copied. Share your discovery.');
+    } catch {
+      this.ui.showShareLink(link);
+    }
   }
 
   frame(deltaSeconds: number) {
@@ -366,7 +423,7 @@ async function boot() {
     dt: system.defaults.dt,
     substeps: 4,
     timeScale: 1,
-    paused: false,
+    paused: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
     particleCount: tier.defaultParticles,
     ...shared.sim,
   };
@@ -400,6 +457,7 @@ async function boot() {
     for (const [k, v] of Object.entries(shared.params)) app.sim.setParam(k, v);
   }
   if (shared.camera) {
+    app.render.preserveView();
     app.render.camera.position.fromArray(shared.camera.position);
     app.render.controls.target.fromArray(shared.camera.target);
     app.render.camera.fov = shared.camera.fov;
@@ -409,6 +467,8 @@ async function boot() {
 
   app.ui = new UIController(app);
   app.panel = buildPanel(app, document.getElementById('panel-container')!);
+  app.ui.refresh();
+  document.getElementById('startup')!.remove();
 
   if (import.meta.env.DEV) {
     (window as unknown as Record<string, unknown>).__app = app;
@@ -427,8 +487,32 @@ async function boot() {
 
 boot().catch((err) => {
   console.error(err);
-  const el = document.createElement('div');
-  el.style.cssText = 'position:absolute;inset:0;display:grid;place-items:center;color:#f66;font:14px monospace;padding:2em;text-align:center;';
-  el.textContent = `Failed to start: ${err instanceof Error ? err.message : String(err)}`;
-  document.body.appendChild(el);
+  const el = document.getElementById('startup')!;
+  el.className = 'startup-error';
+  el.setAttribute('role', 'alert');
+  el.replaceChildren();
+  const title = document.createElement('h2');
+  title.textContent = 'Let’s try that again.';
+  const description = document.createElement('p');
+  description.textContent = 'Your browser couldn’t open the graphics view. Retry, or try compatibility mode.';
+  const retry = document.createElement('button');
+  retry.type = 'button';
+  retry.className = 'button primary';
+  retry.textContent = 'Try again';
+  retry.addEventListener('click', () => location.reload());
+  const fallback = document.createElement('a');
+  const url = new URL(location.href);
+  url.searchParams.set('forceWebGL', '');
+  fallback.href = url.toString();
+  fallback.className = 'button';
+  fallback.textContent = 'Use compatibility mode';
+  const details = document.createElement('details');
+  const summary = document.createElement('summary');
+  summary.textContent = 'Technical details';
+  const message = document.createElement('p');
+  message.textContent = err instanceof Error ? err.message : String(err);
+  details.append(summary, message);
+  el.append(title, description, retry);
+  if (!new URLSearchParams(location.search).has('forceWebGL')) el.appendChild(fallback);
+  el.appendChild(details);
 });

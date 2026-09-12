@@ -10,6 +10,8 @@ dist-ssr/
 
 # Vite / build caches
 .vite/
+.npm-cache/
+artifacts/
 *.tsbuildinfo
 
 # Logs

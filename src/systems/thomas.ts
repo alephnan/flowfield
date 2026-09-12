@@ -4,9 +4,10 @@ import type { SystemDefinition } from '../types';
 export const thomas: SystemDefinition = {
   id: 'thomas',
   name: 'Thomas',
+  introduction: 'Three interwoven directions, tracing a soft labyrinth.',
   dim: 3,
   parameters: [
-    { key: 'b', label: 'b', default: 0.208186, min: 0, max: 1, step: 0.001, safe: [0.02, 0.4] },
+    { key: 'b', label: 'b', description: 'Linear damping in all three directions. Lower values allow trajectories to wander farther.', default: 0.208186, min: 0, max: 1, step: 0.001, safe: [0.02, 0.4] },
   ],
   derivative: (p, { b }) => {
     const dx = sin(p.y).sub(b.mul(p.x));

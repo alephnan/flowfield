@@ -4,6 +4,7 @@ import type { SystemDefinition } from '../types';
 export const halvorsen: SystemDefinition = {
   id: 'halvorsen',
   name: 'Halvorsen',
+  introduction: 'A continuous dance of three sharply folded scrolls.',
   dim: 3,
   parameters: [
     { key: 'a', label: 'a', default: 1.89, min: 0.5, max: 3, step: 0.005, safe: [1.3, 2.3] },

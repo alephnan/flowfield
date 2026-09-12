@@ -4,6 +4,7 @@ import type { SystemDefinition } from '../types';
 export const rossler: SystemDefinition = {
   id: 'rossler',
   name: 'Rössler',
+  introduction: 'A ribbon spirals outward, then folds back into itself.',
   dim: 3,
   parameters: [
     { key: 'a', label: 'a', default: 0.2, min: 0, max: 0.5, step: 0.005, safe: [0.1, 0.35] },
