@@ -4,7 +4,7 @@ import { button, element, icon, setButtonContent } from '../ui/controls';
 import { colorLabels, paletteGradient } from '../ui/palettes';
 import type { App } from '../main';
 
-/** Gallery shell and transient interface state; simulation state lives in App. */
+/** Application shell and transient interface state; simulation state lives in App. */
 export class UIController {
   private root = document.getElementById('app')!;
   private systemSelect = element('select');
@@ -58,7 +58,7 @@ export class UIController {
 
   private buildHeader() {
     const bar = document.getElementById('system-bar')!;
-    const label = element('label', 'system-label', 'Explore');
+    const label = element('label', 'system-label', 'System');
     this.systemSelect.id = 'system-select';
     label.htmlFor = this.systemSelect.id;
     this.systemSelect.setAttribute('aria-label', 'System');
@@ -74,7 +74,7 @@ export class UIController {
       const group = element('div', className);
       group.appendChild(button('Share', () => { this.menu.open = false; void this.app.copyLink(); }, 'share', 'subtle'));
       const exportButton = button('Export PNG', () => { void this.exportPNG(); }, 'download');
-      exportButton.title = 'Export the artwork as a PNG, up to 2× resolution';
+      exportButton.title = 'Export the simulation as a PNG, up to 2× resolution';
       this.exportButtons.push(exportButton);
       group.appendChild(exportButton);
       const focus = button('Focus view', () => this.setFocusView(true), 'focus', 'subtle');
@@ -85,8 +85,12 @@ export class UIController {
     };
     actions.appendChild(makeActions('desktop-actions'));
     const summary = element('summary', 'button', 'Menu');
-    summary.setAttribute('aria-label', 'More artwork actions');
-    this.menu.append(summary, makeActions('menu-actions'));
+    summary.setAttribute('aria-label', 'More simulation actions');
+    const menuActions = makeActions('menu-actions');
+    const projectsLink = element('a', 'button subtle menu-projects-link', 'Back to Projects');
+    projectsLink.href = 'https://alephnan.github.io/projects/';
+    menuActions.appendChild(projectsLink);
+    this.menu.append(summary, menuActions);
     actions.appendChild(this.menu);
     this.controlsButton = button('Controls', () => this.setInspector(!this.inspectorOpen, true), 'sliders', 'controls-toggle');
     this.controlsButton.setAttribute('aria-controls', 'panel-container');
@@ -131,6 +135,7 @@ export class UIController {
     this.playButtons.push(focusPlay);
     focusControls.append(focusPlay, button('Exit focus', () => this.setFocusView(false), 'exit'));
     const canvas = this.app.renderer.domElement;
+    canvas.id = 'simulation-canvas';
     canvas.tabIndex = 0;
     canvas.setAttribute('role', 'img');
     canvas.setAttribute('aria-describedby', 'artwork-description');
@@ -181,9 +186,9 @@ export class UIController {
     const sys = this.app.system;
     this.systemSelect.value = sys.id;
     document.getElementById('artwork-title')!.textContent = sys.name;
-    document.getElementById('system-index')!.textContent = `STUDY ${String(systems.indexOf(sys) + 1).padStart(2, '0')} / ${String(systems.length).padStart(2, '0')} · ${sys.dim}D DYNAMICAL SYSTEM`;
-    document.getElementById('artwork-description')!.textContent = sys.introduction ?? 'Follow a simple rule into an unexpected world.';
-    this.app.renderer.domElement.setAttribute('aria-label', `${sys.name} interactive particle artwork. Arrow keys rotate; plus and minus zoom.`);
+    document.getElementById('system-index')!.textContent = `SYSTEM ${String(systems.indexOf(sys) + 1).padStart(2, '0')} / ${String(systems.length).padStart(2, '0')} · ${sys.dim}D DYNAMICAL SYSTEM`;
+    document.getElementById('artwork-description')!.textContent = sys.introduction ?? 'Explore motion through interactive mathematical models.';
+    this.app.renderer.domElement.setAttribute('aria-label', `${sys.name} interactive particle simulation. Arrow keys rotate; plus and minus zoom.`);
     this.refresh();
   }
 
@@ -260,7 +265,8 @@ export class UIController {
       dialog.querySelector('.dialog-close')!.addEventListener('click', () => dialog.close());
     }
     document.getElementById('share-dialog')!.addEventListener('close', () => {
-      if (matchMedia('(max-width: 599px)').matches) this.menu.querySelector('summary')!.focus();
+      const menuTrigger = this.menu.querySelector('summary')!;
+      if (menuTrigger.checkVisibility()) menuTrigger.focus();
     });
     document.getElementById('select-share-link')!.addEventListener('click', () => {
       const input = document.getElementById('share-url') as HTMLTextAreaElement;

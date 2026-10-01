@@ -1,4 +1,39 @@
-# Flowfield gallery redesign — implementation review
+# Flowfield interface — implementation review
+
+## Portfolio alignment — September 30, 2026
+
+The interface now matches the [RGH Projects page](https://alephnan.github.io/projects/). It uses the portfolio's navy surfaces, teal accent, square borders, corner markers, Helvetica/Arial body stack, Arial Black headings, and locally bundled JetBrains Mono. Mathematical symbols and KaTeX keep their mathematical typography. Scientific palettes, canvas materials, simulation defaults, and URL keys are unchanged.
+
+The header uses RGH / FLOWFIELD, links to the portfolio homepage and Projects, and moves actions plus Back to Projects into Menu below 1200px. Phones keep the compact Flowfield wordmark. All interactive and feedback states use the same semantic colors, including startup, dialogs, invalid inputs, selected controls, and export errors. Primary buttons have a clipped corner with an inset keyboard focus indicator.
+
+Responsive verification uncovered two layout defects and corrected them: paused playback could clip Fit view in the smallest landscape workspace, and the open-sheet media rules could override Focus view. Short landscape now uses 44px Step/Fit icon buttons and 12px transport padding. Final Focus rules explicitly take precedence over the sheet layout. Share-dialog focus return now follows actual Menu visibility, covering tablets as well as phones. A keyboard skip link focuses the simulation canvas.
+
+### Current validation
+
+| Area | Evidence |
+|---|---|
+| Build and regressions | `npm test`: all eight existing tests pass. `npm run build`: strict TypeScript and production bundling pass. `git diff --check`: passes. |
+| Visual comparison | Compared the portfolio and Flowfield on desktop and phone. Reviewed Shape, Appearance, Mathematics, Help, Share, loading, startup error, and export-error styling. |
+| Responsive layout | Inspected 1440×900, 1280×720, 1024×768, 768×1024, 390×844, 320×640, 640×360, and 600×360. Measured the 1200/1199 and 1100/1099 breakpoints. Document/header widths match the viewport; one simulation canvas remains present. |
+| Small-screen controls | At 390×844 the open sheet is 464px high and leaves a 164px canvas. At 600×360 the paused playback and Fit control fit inside the 280px workspace. Interactive phone controls have at least 44px targets; the skip link was brought to the same minimum. |
+| Systems and mathematics | Switched through all nine systems; each retained a single canvas and rendered equations without KaTeX errors. All 30 named preset entries remain available. This pass smoke-tested Classic; the earlier full preset run below is historical. |
+| Parameter precision and sharing | `0.9123456789` survived variation/undo and a shared-URL reload. Keyboard camera rotation wrote the camera into the shared URL. Existing regression tests cover exact camera/settings serialization and legacy URL compatibility. |
+| Appearance and tiers | Dark/Paper switches preserve the artwork modes. The compiled production bundle runs with `forceWebGL&forceMobile`, exposes the 65,536-particle limit, and explains unavailable bloom. |
+| Keyboard and Focus | Skip link targets the canvas; I opens mathematics; arrow-key tabs update selection and focus; outlines remain visible. Help closes with Escape and returns focus. Focus view fills the full 1024×768 canvas with the sheet hidden, then restores the workspace. |
+| Share fallback | A local fixture forces clipboard rejection. The complete URL is selected; closing the dialog at 1024px returns focus to Menu. |
+| Reduced motion | A controlled media-query fixture starts paused with Step available. The existing CSS reduced-motion rule still suppresses transitions and animations; native OS preference changes were not exercised. |
+| Export | Forced first-capture failure displays Retry/Dismiss and restores the 974×484 canvas. Retry succeeds. A separate capture fixture exposes the actual PNG returned by the app: 2140×1232, saved and visually inspected; live rendering returns to 1070×616. The in-app download event timed out, so the PNG was retrieved through this fixture rather than the browser download manager. |
+| Startup | Controlled loading and renderer-initialization failure fixtures show the themed status, Retry, compatibility option, and technical details. |
+
+Against the inspector surface `#0F1C2E`, calculated contrast is **15.14:1** for heading text, **9.92:1** for body text, **5.13:1** for muted text, **7.11:1** for teal, and **4.19:1** for input borders. These are token checks, not a complete accessibility certification.
+
+No simulation loop, GPU buffer, renderer behavior, palette definition, or capability limit changed. Decorative corner marks are static CSS; the interface adds no recurring rendering work. Physical touch devices, full screen-reader coverage, OS-level reduced-motion changes, and a new sustained GPU benchmark were not tested.
+
+Screenshots, the inspected `export.png`, and controlled HTML fixtures are local ignored evidence in `artifacts/portfolio-review/`. They are excluded from the build. This review was completed against a local preview before publication.
+
+## Previous gallery redesign — historical review
+
+The remaining report records the earlier gallery implementation, including its previous typography, colors, and performance measurements. It is retained as historical evidence and does not describe the current visual identity.
 
 The production Tweakpane interface has been replaced by a responsive gallery shell and native TypeScript controls. The attractor remains the main visual element. All nine systems, all 30 named presets, and the existing rendering and sharing features remain available.
 

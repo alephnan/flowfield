@@ -1,8 +1,10 @@
-# Flowfield — a gallery for living mathematics
+# Flowfield — dynamical systems visualizer
 
 A browser-based visualizer for continuous dynamical systems. Up to ~1,000,000 particles are advected through a vector field (a strange attractor) and integrated **entirely on the GPU**, so you can drag a parameter slider and watch a system slide from a stable fixed point through a limit cycle into chaos in real time, with no frame hitching.
 
 It ships with nine classic attractors (Lorenz, Rössler, Aizawa, Thomas, Halvorsen, Chen, Dadras, Van der Pol, and the forced Duffing oscillator). Each system renders as a live point cloud, optional motion trails, and an optional vector-field glyph lattice, with per-system equations (rendered via KaTeX) and presets that demonstrate qualitative regime changes across bifurcation values.
+
+The interface follows the [RGH portfolio](https://alephnan.github.io/projects/): navy surfaces, teal accents, bold headings, and monospaced controls. The compact header links back to Projects; scientific palettes and canvas treatments remain independent of the interface colors.
 
 ## How it works
 
@@ -16,7 +18,7 @@ It ships with nine classic attractors (Lorenz, Rössler, Aizawa, Thomas, Halvors
 - Vanilla TypeScript (no UI framework), strict mode
 - Three.js `WebGPURenderer` programmed via TSL (Three Shading Language) node system
 - Reusable native TypeScript controls, KaTeX for equations
-- Locally bundled Newsreader, IBM Plex Sans, and IBM Plex Mono fonts; licenses in `public/fonts/`
+- Helvetica/Arial body text, Arial Black display headings, and locally bundled JetBrains Mono labels and readouts; license in `public/fonts/`
 - Vite for bundling and dev serving
 
 ## Prerequisites
@@ -59,11 +61,11 @@ To verify the production build locally before deploying:
 npm run preview
 ```
 
-## Exploring the gallery
+## Exploring the visualizer
 
 Use **Shape** for presets, exact parameter values, and variations with one-step undo. **Appearance** contains drawing modes, palettes, Dark/Paper canvas treatments, and collapsible Camera and Quality settings. **Mathematics** connects the equations and parameter descriptions, with vector fields and advanced numerical controls.
 
-Playback, restart, speed, and Fit view remain beside the artwork. Share, PNG export (up to 2×, capped at 4096 pixels per edge), and Focus view are in the header or the phone's Menu. Below 1100px, Controls opens a sheet with independent scrolling. Automatic views refit to available space; shared and manually adjusted cameras keep their composition until Fit view is selected.
+Playback, restart, speed, and Fit view remain beside the simulation. Share, PNG export (up to 2×, capped at 4096 pixels per edge), and Focus view are in the header or its compact Menu, which appears below 1200px and includes Back to Projects. Below 1100px, Controls opens a sheet with independent scrolling. Automatic views refit to available space; shared and manually adjusted cameras keep their composition until Fit view is selected.
 
 Rotate by dragging, zoom with the wheel or a pinch, and click/tap the canvas to seed particles. The **How to explore** dialog lists keyboard equivalents. Shortcuts avoid editable controls, and reduced-motion preferences start playback paused. Arrow keys rotate a focused canvas; `+`/`−` zoom it. `Space` toggles playback, `.` steps while paused, `I` opens mathematics, `F` enters Focus view, and `Esc` closes it or the controls.
 

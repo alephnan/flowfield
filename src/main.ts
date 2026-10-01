@@ -1,9 +1,7 @@
 import * as THREE from 'three/webgpu';
-import '@fontsource/newsreader/latin-400.css';
-import '@fontsource/newsreader/latin-400-italic.css';
-import '@fontsource/ibm-plex-sans/latin-400.css';
-import '@fontsource/ibm-plex-sans/latin-500.css';
-import '@fontsource/ibm-plex-mono/latin-400.css';
+import '@fontsource/jetbrains-mono/latin-400.css';
+import '@fontsource/jetbrains-mono/latin-500.css';
+import '@fontsource/jetbrains-mono/latin-700.css';
 import { SimulationController } from './app/SimulationController';
 import { RenderController } from './app/RenderController';
 import { UIController } from './app/UIController';
@@ -371,7 +369,7 @@ export class App {
     const link = this.shareableLink();
     try {
       await navigator.clipboard.writeText(link);
-      this.ui.toast('Link copied. Share your discovery.');
+      this.ui.toast('Link copied.');
     } catch {
       this.ui.showShareLink(link);
     }
@@ -492,7 +490,7 @@ boot().catch((err) => {
   el.setAttribute('role', 'alert');
   el.replaceChildren();
   const title = document.createElement('h2');
-  title.textContent = 'Let’s try that again.';
+  title.textContent = 'Unable to initialize graphics';
   const description = document.createElement('p');
   description.textContent = 'Your browser couldn’t open the graphics view. Retry, or try compatibility mode.';
   const retry = document.createElement('button');
