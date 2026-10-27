@@ -55,3 +55,6 @@ AGENTS.md
 
 #Other
 spec.md
+
+# Local Python profiling tools
+__pycache__/

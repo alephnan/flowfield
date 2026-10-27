@@ -18,6 +18,7 @@ import type { IntegratorId, ParamUniforms, SystemDefinition, TSLNode } from '../
 import { integrators, type DerivFn } from '../tsl/integrators';
 import { rand3, randGaussian3 } from '../tsl/prng';
 import { sampleSpawn } from '../tsl/spawn';
+import { disposeStorageBuffer } from './gpuResources';
 
 /**
  * Owns the particle state buffers and the fused integrate/age/respawn compute
@@ -57,6 +58,7 @@ export class SimulationController {
 
   private computeStep!: TSLNode;
   private computeInit!: TSLNode;
+  private disposed = false;
 
   constructor(renderer: THREE.WebGPURenderer, system: SystemDefinition, count: number) {
     this.renderer = renderer;
@@ -102,6 +104,7 @@ export class SimulationController {
   }
 
   private buildKernels() {
+    this.disposeKernels();
     const f = this.derivative;
     const step = integrators[this.integrator];
     const spawnRegion = this.system.defaults.spawn;
@@ -167,6 +170,21 @@ export class SimulationController {
       this.speeds.element(instanceIndex).assign(float(0));
       this.spawnFrames.element(instanceIndex).assign(uint(0));
     })().compute(this.count);
+  }
+
+  private disposeKernels() {
+    this.computeStep?.dispose();
+    this.computeInit?.dispose();
+  }
+
+  /** Release only after render objects and trail kernels stop using this state. */
+  dispose() {
+    if (this.disposed) return;
+    this.disposed = true;
+    this.disposeKernels();
+    for (const buffer of [this.positions, this.ages, this.speeds, this.spawnFrames]) {
+      disposeStorageBuffer(this.renderer, buffer.value);
+    }
   }
 
   setSystem(system: SystemDefinition) {

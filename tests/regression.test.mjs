@@ -126,3 +126,92 @@ test('URL synchronization debounces changes and retains capability overrides', a
     delete globalThis.history;
   }
 });
+
+const { disposeStorageBuffer, disposeOwnedGeometry } = await loadModule('../src/app/gpuResources.ts');
+
+test('WebGL storage retirement releases the second buffer, PBO and only matching cached bindings', () => {
+  const retired = [];
+  const attribute = { pbo: { dispose: () => retired.push('pbo') } };
+  const data = { id: '7|0', baseId: 7, transformBuffer: 'inactive' };
+  const backend = {
+    isWebGLBackend: true,
+    has: resource => resource === attribute && data !== undefined && !retired.includes('active'),
+    get: () => data,
+    vaoCache: { ':7|0:11': 'vao-a', ':7|1:11': 'vao-b', ':17|0:11': 'keep-vao' },
+    transformFeedbackCache: { ':7|1:8|0': 'feedback', ':17|1:8|0': 'keep-feedback' },
+    state: { resetVertexState: () => retired.push('unbind') },
+    gl: {
+      deleteVertexArray: value => retired.push(value),
+      deleteTransformFeedback: value => retired.push(value),
+      deleteBuffer: value => retired.push(value),
+    },
+  };
+  const renderer = { backend, _attributes: { delete: value => {
+    assert.equal(value, attribute);
+    retired.push('active');
+  } } };
+  disposeStorageBuffer(renderer, attribute);
+  assert.deepEqual(backend.vaoCache, { ':17|0:11': 'keep-vao' });
+  assert.deepEqual(backend.transformFeedbackCache, { ':17|1:8|0': 'keep-feedback' });
+  assert.deepEqual(retired, ['unbind', 'vao-a', 'unbind', 'vao-b', 'feedback', 'inactive', 'pbo', 'active']);
+});
+
+test('standalone storage uses renderer accounting on WebGPU, including an unallocated buffer', () => {
+  const attributes = new Set([{}]);
+  const allocated = [...attributes][0];
+  const releases = [];
+  const renderer = {
+    backend: { isWebGPUBackend: true },
+    _attributes: { delete: attribute => {
+      if (attributes.delete(attribute)) releases.push(attribute);
+    } },
+  };
+  disposeStorageBuffer(renderer, allocated);
+  disposeStorageBuffer(renderer, allocated);
+  disposeStorageBuffer(renderer, {});
+  assert.deepEqual(releases, [allocated]);
+});
+
+test('owned WebGL geometry drops its VAO before deleting the geometry buffers', () => {
+  const events = [];
+  const attribute = {};
+  const backend = {
+    isWebGLBackend: true,
+    has: value => value === attribute,
+    get: () => ({ id: 12 }),
+    vaoCache: { ':12:13': 'owned', ':112:13': 'unrelated' },
+    transformFeedbackCache: {},
+    state: { resetVertexState: () => events.push('unbind') },
+    gl: { deleteVertexArray: value => events.push(value) },
+  };
+  const geometry = { attributes: { position: attribute }, dispose: () => events.push('geometry') };
+  disposeOwnedGeometry({ backend }, geometry);
+  assert.deepEqual(events, ['unbind', 'owned', 'geometry']);
+  assert.deepEqual(backend.vaoCache, { ':112:13': 'unrelated' });
+});
+
+test('WebGL write-only outputs are retired even when absent from renderer accounting', () => {
+  const events = [];
+  const attribute = {};
+  let allocated = true;
+  const renderer = {
+    backend: {
+      isWebGLBackend: true,
+      has: value => value === attribute && allocated,
+      get: () => ({ baseId: 5, transformBuffer: 'partner' }),
+      vaoCache: {},
+      transformFeedbackCache: {},
+      gl: { deleteBuffer: value => events.push(value) },
+      destroyAttribute: value => {
+        assert.equal(value, attribute);
+        events.push('active');
+        allocated = false;
+      },
+    },
+    _attributes: { delete: () => events.push('manager') },
+  };
+  disposeStorageBuffer(renderer, attribute);
+  disposeStorageBuffer(renderer, attribute);
+  assert.equal(allocated, false);
+  assert.deepEqual(events, ['partner', 'manager', 'active', 'manager']);
+});

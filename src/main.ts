@@ -249,6 +249,10 @@ export class App {
   /** Explicit-apply particle count change: rebuilds sim buffers + render objects. */
   applyParticleCount(n: number) {
     const params = this.paramValues();
+    // Retire consumers and cached compute programs before compiling replacements:
+    // WebGL programs retain their transform-feedback attribute references.
+    this.render.releaseSimulation();
+    this.sim.dispose();
     this.simSettings.particleCount = n;
     this.sim = new SimulationController(this.renderer, this.system, n);
     for (const [k, v] of Object.entries(params)) this.sim.setParam(k, v);

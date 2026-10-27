@@ -24,6 +24,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { applyColormap } from '../tsl/colormaps';
 import { responsiveDistance } from './framing';
 import { captureFrame } from './capture';
+import { disposeOwnedGeometry, disposeStorageBuffer } from './gpuResources';
 import type { RenderSettings, SystemDefinition, Tier, TSLNode } from '../types';
 import type { SimulationController } from './SimulationController';
 
@@ -72,6 +73,7 @@ export class RenderController {
   private trailT = 64;
   private trailHead = 0;
   private trailDensityCur = 1;
+  private readonly slotMajorTrails: boolean;
 
   /** DPR cap the app renders at when resolutionScale is 1. */
   readonly baseRatio: number;
@@ -91,6 +93,8 @@ export class RenderController {
     this.renderer = renderer;
     this.tier = tier;
     this.trailT = tier.trailT;
+    this.slotMajorTrails =
+      (renderer.backend as { isWebGPUBackend?: boolean }).isWebGPUBackend === true;
     this.baseRatio = Math.min(window.devicePixelRatio, tier.dprCap);
 
     this.camera = new THREE.PerspectiveCamera(50, 1, 0.01, 5000);
@@ -120,10 +124,9 @@ export class RenderController {
 
   /** Full (re)build against a (possibly new) simulation instance. */
   rebuildAll(sim: SimulationController, settings: RenderSettings) {
+    this.releaseSimulation();
     this.sim = sim;
     this.settings = settings;
-    this.pointsSig = this.trailsSig = this.glyphsSig = '';
-    this.disposeTrails();
     this.onSystemChanged(sim.system, false);
     this.apply(settings);
   }
@@ -145,10 +148,18 @@ export class RenderController {
     this.camera.far = d.scale * 200;
     this.camera.updateProjectionMatrix();
 
-    this.glyphsSig = ''; // force glyph rebake
+    this.disposeGlyphs(); // the derivative and parameter uniforms belong to this system
     if (moveCamera) this.applyCameraPreset(system);
     if (this.settings) this.apply(this.settings);
     if (this.trailBuf) this.resetTrails();
+  }
+
+  /** Detach every consumer before retiring or replacing simulation buffers. */
+  releaseSimulation() {
+    // Hidden layers can still reference the old simulation.
+    this.disposePoints();
+    this.disposeGlyphs();
+    this.disposeTrails();
   }
 
   applyCameraPreset(system: SystemDefinition) {
@@ -266,10 +277,7 @@ export class RenderController {
   }
 
   private buildPoints() {
-    if (this.points) {
-      this.scene.remove(this.points);
-      this.points.material.dispose();
-    }
+    this.disposePoints();
     const sim = this.sim;
     const material = new THREE.SpriteNodeMaterial({
       transparent: true,
@@ -299,7 +307,24 @@ export class RenderController {
     this.pointsSig = `${this.settings.colormap}|${this.settings.colorBy}|${this.settings.paperMode}`;
   }
 
+  private disposePoints() {
+    if (this.points) {
+      this.scene.remove(this.points);
+      this.points.material.dispose();
+      // Sprite geometry is shared by Three; it is not owned by this layer.
+      this.points = undefined;
+    }
+    this.pointsSig = '';
+  }
+
   // ── Trails ────────────────────────────────────────────────────────────────
+
+  /** Adjacent rendered trails read adjacent history entries on WebGPU. */
+  private trailIndex(trail: TSLNode, slot: TSLNode): TSLNode {
+    return this.slotMajorTrails
+      ? slot.mul(uint(this.trailCount)).add(trail)
+      : trail.mul(uint(this.trailT)).add(slot);
+  }
 
   private buildTrailBuffers() {
     const sim = this.sim;
@@ -316,24 +341,20 @@ export class RenderController {
     this.trailHeadU.value = 0;
 
     const stride = this.trailStride;
-    const isWebGPU =
-      (this.renderer.backend as { isWebGPUBackend?: boolean }).isWebGPUBackend === true;
-
-    if (isWebGPU) {
-      // One thread per TRAIL, scatter-writing its head slot — T× fewer threads
-      // than the portable kernel below. On a respawn teleport the whole ring
-      // is flooded so no streak connects to the new spawn point.
+    if (this.slotMajorTrails) {
+      // One thread per trail, with adjacent head writes in slot-major storage.
+      // A respawn still floods every slot, preventing teleport streaks.
+      // WebGL keeps its original layout and one invocation per history slot.
       this.trailWrite = Fn(() => {
         const pIdx = instanceIndex.mul(uint(stride));
         const pos = this.sim.positions.element(pIdx);
-        const base = instanceIndex.mul(uint(T));
         const spawned = this.sim.spawnFrames.element(pIdx).equal(uint(this.sim.frameU));
         If(spawned, () => {
           Loop({ start: uint(0), end: uint(T) }, ({ i }) => {
-            this.trailBuf.element(base.add(i)).assign(pos);
+            this.trailBuf.element(this.trailIndex(instanceIndex, i)).assign(pos);
           });
         }).Else(() => {
-          this.trailBuf.element(base.add(uint(this.trailHeadU))).assign(pos);
+          this.trailBuf.element(this.trailIndex(instanceIndex, uint(this.trailHeadU))).assign(pos);
         });
       })().compute(this.trailCount);
     } else {
@@ -355,7 +376,9 @@ export class RenderController {
     }
 
     this.trailInit = Fn(() => {
-      const trail = instanceIndex.div(uint(T));
+      const trail = this.slotMajorTrails
+        ? instanceIndex.mod(uint(this.trailCount))
+        : instanceIndex.div(uint(T));
       this.trailBuf.element(instanceIndex).assign(this.sim.positions.element(trail.mul(uint(stride))));
     })().compute(this.trailCount * T);
 
@@ -367,11 +390,7 @@ export class RenderController {
   }
 
   private buildTrailMesh() {
-    if (this.trailMesh) {
-      this.scene.remove(this.trailMesh);
-      this.trailMesh.geometry.dispose();
-      (this.trailMesh.material as THREE.Material).dispose();
-    }
+    this.disposeTrailMesh();
     const sim = this.sim;
     const T = this.trailT;
     const stride = this.trailStride;
@@ -394,11 +413,10 @@ export class RenderController {
     const headSafe = uint(this.trailHeadU).add(uint(T));
     const slot = headSafe.sub(select(isB, j, j.add(uint(1)))).mod(uint(T));
     const slotOther = headSafe.sub(select(isB, j.add(uint(1)), j)).mod(uint(T));
-    const base = trail.mul(uint(T));
 
     // Storage reads in render stages are automatically read-only bindings.
-    const p = this.trailBuf.element(base.add(slot)).toVar();
-    const pOther = this.trailBuf.element(base.add(slotOther)).toVar();
+    const p = this.trailBuf.element(this.trailIndex(trail, slot)).toVar();
+    const pOther = this.trailBuf.element(this.trailIndex(trail, slotOther)).toVar();
     const dirRaw: TSLNode = select(isB, p.sub(pOther), pOther.sub(p)).toVar();
     const dir: TSLNode = dirRaw.div(dirRaw.length().max(1e-6));
     const toCam: TSLNode = cameraPosition.sub(p);
@@ -439,26 +457,29 @@ export class RenderController {
     this.trailsSig = `${this.settings.colormap}|${this.settings.colorBy}|${this.settings.paperMode}`;
   }
 
-  private disposeTrails() {
+  private disposeTrailMesh() {
     if (this.trailMesh) {
       this.scene.remove(this.trailMesh);
-      this.trailMesh.geometry.dispose();
       (this.trailMesh.material as THREE.Material).dispose();
+      disposeOwnedGeometry(this.renderer, this.trailMesh.geometry);
       this.trailMesh = undefined;
       this.trailGeometry = undefined;
     }
-    this.trailBuf = this.trailWrite = this.trailInit = undefined;
     this.trailsSig = '';
+  }
+
+  private disposeTrails() {
+    this.disposeTrailMesh();
+    this.trailWrite?.dispose();
+    this.trailInit?.dispose();
+    if (this.trailBuf) disposeStorageBuffer(this.renderer, this.trailBuf.value);
+    this.trailBuf = this.trailWrite = this.trailInit = undefined;
   }
 
   // ── Vector-field glyphs ──────────────────────────────────────────────────
 
   private buildGlyphs() {
-    if (this.glyphLines) {
-      this.scene.remove(this.glyphLines);
-      this.glyphLines.geometry.dispose();
-      (this.glyphLines.material as THREE.Material).dispose();
-    }
+    this.disposeGlyphs();
     const sim = this.sim;
     const G = GLYPH_GRID;
     const gz = sim.system.dim === 2 ? 1 : G;
@@ -496,6 +517,16 @@ export class RenderController {
     this.scene.add(lines);
     this.glyphLines = lines;
     this.glyphsSig = `${sim.system.id}|${this.settings.colormap}|${this.settings.paperMode}`;
+  }
+
+  private disposeGlyphs() {
+    if (this.glyphLines) {
+      this.scene.remove(this.glyphLines);
+      (this.glyphLines.material as THREE.Material).dispose();
+      disposeOwnedGeometry(this.renderer, this.glyphLines.geometry);
+      this.glyphLines = undefined;
+    }
+    this.glyphsSig = '';
   }
 
   // ── Post ─────────────────────────────────────────────────────────────────

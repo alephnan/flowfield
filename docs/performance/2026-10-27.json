@@ -1,0 +1,4291 @@
+{
+  "date": "2026-10-27",
+  "commit": "4b496ae04ab2f5fbfda8f4a9bcc7ec70b699174b",
+  "scope": "Investigation only. Application source was not edited.",
+  "runtime": {
+    "node": "24.22.1",
+    "three": "0.185.1",
+    "browser": "Chrome for Testing 156.0.8078.47",
+    "os": "Windows 11",
+    "measuredWebGpu": "Intel UHD Graphics (gen-12lp)",
+    "alsoInstalled": "NVIDIA GeForce RTX 4060 Laptop GPU"
+  },
+  "methodology": {
+    "viewportCssPixels": [
+      1440,
+      900
+    ],
+    "devicePixelRatio": 2,
+    "canvasPhysicalPixels": [
+      2140,
+      1232
+    ],
+    "autoQuality": false,
+    "warmupFrames": 120,
+    "measuredFrames": 240,
+    "gpuSamplesPerCase": 8,
+    "timings": "Per-frame CPU submission and rAF intervals; asynchronous GPU timestamp samples. Vite dev build, headless, exploratory, no sustained thermal test.",
+    "memory": "Three renderer.info.memory tracked allocations, not total browser/driver resident memory.",
+    "visual": "RGBA pixel equality after fixed-step runs: cleanup 120 steps; trail-layout 180 steps, dtFrame=1/60."
+  },
+  "baseline": {
+    "browser": "156.0.8078.47",
+    "viewport": [
+      1440,
+      900
+    ],
+    "dpr": 2,
+    "warmupFrames": 120,
+    "sampleFrames": 240,
+    "cases": [
+      {
+        "name": "default-points",
+        "url": "http://127.0.0.1:5173/?aq=0&rs=1",
+        "frameMs": {
+          "mean": 16.677500000596048,
+          "p50": 16.699999809265137,
+          "p95": 18.299999952316284,
+          "max": 27.59999990463257,
+          "count": 240
+        },
+        "cpuSubmitMs": {
+          "mean": 1.178749997417132,
+          "p50": 0.8000001907348633,
+          "p95": 3.200000047683716,
+          "max": 5.799999952316284,
+          "count": 240
+        },
+        "gpuComputeMs": {
+          "mean": 1.032192,
+          "p50": 1.048576,
+          "p95": 1.31072,
+          "max": 1.31072,
+          "count": 8
+        },
+        "gpuRenderMs": {
+          "mean": 5.332992,
+          "p50": 5.308416,
+          "p95": 6.88128,
+          "max": 6.88128,
+          "count": 8
+        },
+        "gpuSamples": [
+          {
+            "compute": 0.720896,
+            "render": 3.735552
+          },
+          {
+            "compute": 0.786432,
+            "render": 4.325376
+          },
+          {
+            "compute": 0.98304,
+            "render": 5.24288
+          },
+          {
+            "compute": 1.179648,
+            "render": 5.89824
+          },
+          {
+            "compute": 1.31072,
+            "render": 6.88128
+          },
+          {
+            "compute": 1.048576,
+            "render": 5.308416
+          },
+          {
+            "compute": 1.048576,
+            "render": 5.24288
+          },
+          {
+            "compute": 1.179648,
+            "render": 6.029312
+          }
+        ],
+        "memory": {
+          "attributes": 3,
+          "attributesSize": 196,
+          "geometries": 2,
+          "indexAttributes": 1,
+          "indexAttributesSize": 24,
+          "indirectStorageAttributes": 0,
+          "indirectStorageAttributesSize": 0,
+          "programs": 6,
+          "programsSize": 24183,
+          "readbackBuffers": 0,
+          "readbackBuffersSize": 0,
+          "renderTargets": 1,
+          "storageAttributes": 4,
+          "storageAttributesSize": 7340032,
+          "textures": 2,
+          "texturesSize": 31637760,
+          "uniformBuffers": 6,
+          "uniformBuffersSize": 576,
+          "total": 39002771
+        },
+        "draw": {
+          "calls": 746,
+          "frameCalls": 2,
+          "drawCalls": 2,
+          "triangles": 524289,
+          "points": 0,
+          "lines": 0,
+          "timestamp": 6.029312
+        },
+        "sim": {
+          "integrator": "rk4",
+          "dt": 0.02,
+          "substeps": 4,
+          "timeScale": 1,
+          "paused": false,
+          "particleCount": 262144
+        },
+        "render": {
+          "mode": "points",
+          "colormap": "inferno",
+          "colorBy": "speed",
+          "colorA": "#1a2b8f",
+          "colorB": "#ff9a3c",
+          "pointSize": 0.7,
+          "opacity": 0.13,
+          "trailLength": 19,
+          "trailWidth": 0.4,
+          "bloom": false,
+          "bloomStrength": 0.8,
+          "paperMode": false,
+          "glyphs": false,
+          "resolutionScale": 1,
+          "autoQuality": false,
+          "trailDensity": 1
+        },
+        "backend": "WebGPUBackend",
+        "tier": {
+          "name": "webgpu",
+          "maxParticles": 1048576,
+          "defaultParticles": 262144,
+          "trailT": 64,
+          "trailCount": 65536,
+          "bloomAllowed": true,
+          "dprCap": 2
+        },
+        "canvas": [
+          2140,
+          1232
+        ],
+        "adapter": {
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": ""
+        },
+        "glRenderer": null,
+        "particleStride": 4,
+        "trailStride": null,
+        "trailInstances": null,
+        "messages": [
+          "warning: The powerPreference option is currently ignored when calling requestAdapter() on Windows. See https://crbug.com/369219127",
+          "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+        ]
+      },
+      {
+        "name": "default-trails",
+        "url": "http://127.0.0.1:5173/?aq=0&rs=1&mode=trails",
+        "frameMs": {
+          "mean": 16.678750000397365,
+          "p50": 16.700000047683716,
+          "p95": 18.399999856948853,
+          "max": 20.600000143051147,
+          "count": 240
+        },
+        "cpuSubmitMs": {
+          "mean": 1.5579166660706203,
+          "p50": 1.0999999046325684,
+          "p95": 3.799999952316284,
+          "max": 6.599999904632568,
+          "count": 240
+        },
+        "gpuComputeMs": {
+          "mean": 0.704512,
+          "p50": 0.65536,
+          "p95": 1.245184,
+          "max": 1.245184,
+          "count": 8
+        },
+        "gpuRenderMs": {
+          "mean": 13.729792,
+          "p50": 14.155776,
+          "p95": 14.548992,
+          "max": 14.548992,
+          "count": 8
+        },
+        "gpuSamples": [
+          {
+            "compute": 0.65536,
+            "render": 14.155776
+          },
+          {
+            "compute": 1.245184,
+            "render": 14.483456
+          },
+          {
+            "compute": 0.589824,
+            "render": 14.548992
+          },
+          {
+            "compute": 0.65536,
+            "render": 14.155776
+          },
+          {
+            "compute": 0.589824,
+            "render": 13.238272
+          },
+          {
+            "compute": 0.720896,
+            "render": 13.303808
+          },
+          {
+            "compute": 0.589824,
+            "render": 12.845056
+          },
+          {
+            "compute": 0.589824,
+            "render": 13.1072
+          }
+        ],
+        "memory": {
+          "attributes": 3,
+          "attributesSize": 116,
+          "geometries": 2,
+          "indexAttributes": 1,
+          "indexAttributesSize": 24,
+          "indirectStorageAttributes": 0,
+          "indirectStorageAttributesSize": 0,
+          "programs": 8,
+          "programsSize": 28983,
+          "readbackBuffers": 0,
+          "readbackBuffersSize": 0,
+          "renderTargets": 1,
+          "storageAttributes": 5,
+          "storageAttributesSize": 74448896,
+          "textures": 2,
+          "texturesSize": 31637760,
+          "uniformBuffers": 9,
+          "uniformBuffersSize": 704,
+          "total": 106116483
+        },
+        "draw": {
+          "calls": 728,
+          "frameCalls": 0,
+          "drawCalls": 0,
+          "triangles": 0,
+          "points": 0,
+          "lines": 0,
+          "timestamp": 13.1072
+        },
+        "sim": {
+          "integrator": "rk4",
+          "dt": 0.02,
+          "substeps": 4,
+          "timeScale": 1,
+          "paused": false,
+          "particleCount": 262144
+        },
+        "render": {
+          "mode": "trails",
+          "colormap": "inferno",
+          "colorBy": "speed",
+          "colorA": "#1a2b8f",
+          "colorB": "#ff9a3c",
+          "pointSize": 0.7,
+          "opacity": 0.13,
+          "trailLength": 19,
+          "trailWidth": 0.4,
+          "bloom": false,
+          "bloomStrength": 0.8,
+          "paperMode": false,
+          "glyphs": false,
+          "resolutionScale": 1,
+          "autoQuality": false,
+          "trailDensity": 1
+        },
+        "backend": "WebGPUBackend",
+        "tier": {
+          "name": "webgpu",
+          "maxParticles": 1048576,
+          "defaultParticles": 262144,
+          "trailT": 64,
+          "trailCount": 65536,
+          "bloomAllowed": true,
+          "dprCap": 2
+        },
+        "canvas": [
+          2140,
+          1232
+        ],
+        "adapter": {
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": ""
+        },
+        "glRenderer": null,
+        "particleStride": 4,
+        "trailStride": 4,
+        "trailInstances": 1179648,
+        "messages": [
+          "warning: The powerPreference option is currently ignored when calling requestAdapter() on Windows. See https://crbug.com/369219127"
+        ]
+      },
+      {
+        "name": "default-both",
+        "url": "http://127.0.0.1:5173/?aq=0&rs=1&mode=both",
+        "frameMs": {
+          "mean": 16.874583333730698,
+          "p50": 16.699999809265137,
+          "p95": 21.199999809265137,
+          "max": 36.89999985694885,
+          "count": 240
+        },
+        "cpuSubmitMs": {
+          "mean": 1.8520833293596903,
+          "p50": 1.5,
+          "p95": 3.8000001907348633,
+          "max": 6.300000190734863,
+          "count": 240
+        },
+        "gpuComputeMs": {
+          "mean": 0.598016,
+          "p50": 0.589824,
+          "p95": 0.6553599999999999,
+          "max": 0.6553599999999999,
+          "count": 8
+        },
+        "gpuRenderMs": {
+          "mean": 15.024128,
+          "p50": 15.007744,
+          "p95": 15.925248,
+          "max": 15.925248,
+          "count": 8
+        },
+        "gpuSamples": [
+          {
+            "compute": 0.589824,
+            "render": 15.007744
+          },
+          {
+            "compute": 0.589824,
+            "render": 15.859712
+          },
+          {
+            "compute": 0.589824,
+            "render": 15.597568
+          },
+          {
+            "compute": 0.589824,
+            "render": 14.811136
+          },
+          {
+            "compute": 0.589824,
+            "render": 14.614528
+          },
+          {
+            "compute": 0.6553599999999999,
+            "render": 14.352384
+          },
+          {
+            "compute": 0.589824,
+            "render": 14.024704
+          },
+          {
+            "compute": 0.589824,
+            "render": 15.925248
+          }
+        ],
+        "memory": {
+          "attributes": 5,
+          "attributesSize": 276,
+          "geometries": 3,
+          "indexAttributes": 2,
+          "indexAttributesSize": 48,
+          "indirectStorageAttributes": 0,
+          "indirectStorageAttributesSize": 0,
+          "programs": 10,
+          "programsSize": 33335,
+          "readbackBuffers": 0,
+          "readbackBuffersSize": 0,
+          "renderTargets": 1,
+          "storageAttributes": 5,
+          "storageAttributesSize": 74448896,
+          "textures": 2,
+          "texturesSize": 31637760,
+          "uniformBuffers": 11,
+          "uniformBuffersSize": 944,
+          "total": 106121259
+        },
+        "draw": {
+          "calls": 730,
+          "frameCalls": 0,
+          "drawCalls": 0,
+          "triangles": 0,
+          "points": 0,
+          "lines": 0,
+          "timestamp": 15.925248
+        },
+        "sim": {
+          "integrator": "rk4",
+          "dt": 0.02,
+          "substeps": 4,
+          "timeScale": 1,
+          "paused": false,
+          "particleCount": 262144
+        },
+        "render": {
+          "mode": "both",
+          "colormap": "inferno",
+          "colorBy": "speed",
+          "colorA": "#1a2b8f",
+          "colorB": "#ff9a3c",
+          "pointSize": 0.7,
+          "opacity": 0.13,
+          "trailLength": 19,
+          "trailWidth": 0.4,
+          "bloom": false,
+          "bloomStrength": 0.8,
+          "paperMode": false,
+          "glyphs": false,
+          "resolutionScale": 1,
+          "autoQuality": false,
+          "trailDensity": 1
+        },
+        "backend": "WebGPUBackend",
+        "tier": {
+          "name": "webgpu",
+          "maxParticles": 1048576,
+          "defaultParticles": 262144,
+          "trailT": 64,
+          "trailCount": 65536,
+          "bloomAllowed": true,
+          "dprCap": 2
+        },
+        "canvas": [
+          2140,
+          1232
+        ],
+        "adapter": {
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": ""
+        },
+        "glRenderer": null,
+        "particleStride": 4,
+        "trailStride": 4,
+        "trailInstances": 1179648,
+        "messages": [
+          "warning: The powerPreference option is currently ignored when calling requestAdapter() on Windows. See https://crbug.com/369219127"
+        ]
+      },
+      {
+        "name": "thomas-points",
+        "url": "http://127.0.0.1:5173/?aq=0&rs=1&sys=thomas",
+        "frameMs": {
+          "mean": 16.663333333532016,
+          "p50": 16.699999809265137,
+          "p95": 19.299999952316284,
+          "max": 21.40000009536743,
+          "count": 240
+        },
+        "cpuSubmitMs": {
+          "mean": 1.7287499944368998,
+          "p50": 1.4000000953674316,
+          "p95": 3.799999952316284,
+          "max": 16.5,
+          "count": 240
+        },
+        "gpuComputeMs": {
+          "mean": 0.811008,
+          "p50": 0.98304,
+          "p95": 1.114112,
+          "max": 1.114112,
+          "count": 8
+        },
+        "gpuRenderMs": {
+          "mean": 4.923391999999999,
+          "p50": 5.767168,
+          "p95": 6.684672,
+          "max": 6.684672,
+          "count": 8
+        },
+        "gpuSamples": [
+          {
+            "compute": 0.393216,
+            "render": 2.490368
+          },
+          {
+            "compute": 0.524288,
+            "render": 3.211264
+          },
+          {
+            "compute": 0.65536,
+            "render": 3.6044799999999997
+          },
+          {
+            "compute": 0.720896,
+            "render": 5.177344
+          },
+          {
+            "compute": 0.98304,
+            "render": 5.832704
+          },
+          {
+            "compute": 0.98304,
+            "render": 5.767168
+          },
+          {
+            "compute": 1.114112,
+            "render": 6.619136
+          },
+          {
+            "compute": 1.114112,
+            "render": 6.684672
+          }
+        ],
+        "memory": {
+          "attributes": 3,
+          "attributesSize": 196,
+          "geometries": 2,
+          "indexAttributes": 1,
+          "indexAttributesSize": 24,
+          "indirectStorageAttributes": 0,
+          "indirectStorageAttributesSize": 0,
+          "programs": 6,
+          "programsSize": 20063,
+          "readbackBuffers": 0,
+          "readbackBuffersSize": 0,
+          "renderTargets": 1,
+          "storageAttributes": 4,
+          "storageAttributesSize": 7340032,
+          "textures": 2,
+          "texturesSize": 31637760,
+          "uniformBuffers": 6,
+          "uniformBuffersSize": 560,
+          "total": 38998635
+        },
+        "draw": {
+          "calls": 774,
+          "frameCalls": 2,
+          "drawCalls": 2,
+          "triangles": 524289,
+          "points": 0,
+          "lines": 0,
+          "timestamp": 6.684672
+        },
+        "sim": {
+          "integrator": "rk4",
+          "dt": 0.08,
+          "substeps": 4,
+          "timeScale": 1,
+          "paused": false,
+          "particleCount": 262144
+        },
+        "render": {
+          "mode": "points",
+          "colormap": "inferno",
+          "colorBy": "speed",
+          "colorA": "#1a2b8f",
+          "colorB": "#ff9a3c",
+          "pointSize": 0.7,
+          "opacity": 0.13,
+          "trailLength": 19,
+          "trailWidth": 0.4,
+          "bloom": false,
+          "bloomStrength": 0.8,
+          "paperMode": false,
+          "glyphs": false,
+          "resolutionScale": 1,
+          "autoQuality": false,
+          "trailDensity": 1
+        },
+        "backend": "WebGPUBackend",
+        "tier": {
+          "name": "webgpu",
+          "maxParticles": 1048576,
+          "defaultParticles": 262144,
+          "trailT": 64,
+          "trailCount": 65536,
+          "bloomAllowed": true,
+          "dprCap": 2
+        },
+        "canvas": [
+          2140,
+          1232
+        ],
+        "adapter": {
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": ""
+        },
+        "glRenderer": null,
+        "particleStride": 4,
+        "trailStride": null,
+        "trailInstances": null,
+        "messages": [
+          "warning: The powerPreference option is currently ignored when calling requestAdapter() on Windows. See https://crbug.com/369219127"
+        ]
+      },
+      {
+        "name": "million-points",
+        "url": "http://127.0.0.1:5173/?aq=0&rs=1&n=1048576",
+        "frameMs": {
+          "mean": 16.6691666662693,
+          "p50": 16.700000047683716,
+          "p95": 18.600000143051147,
+          "max": 24.399999856948853,
+          "count": 240
+        },
+        "cpuSubmitMs": {
+          "mean": 1.889583334326744,
+          "p50": 1.7000000476837158,
+          "p95": 4,
+          "max": 5.599999904632568,
+          "count": 240
+        },
+        "gpuComputeMs": {
+          "mean": 1.92512,
+          "p50": 1.96608,
+          "p95": 2.031616,
+          "max": 2.031616,
+          "count": 8
+        },
+        "gpuRenderMs": {
+          "mean": 7.913472,
+          "p50": 7.995392,
+          "p95": 8.388608,
+          "max": 8.388608,
+          "count": 8
+        },
+        "gpuSamples": [
+          {
+            "compute": 1.6384,
+            "render": 7.077888
+          },
+          {
+            "compute": 1.835008,
+            "render": 7.667712
+          },
+          {
+            "compute": 1.900544,
+            "render": 7.929856
+          },
+          {
+            "compute": 2.031616,
+            "render": 7.995392
+          },
+          {
+            "compute": 1.96608,
+            "render": 8.257536
+          },
+          {
+            "compute": 2.031616,
+            "render": 8.388608
+          },
+          {
+            "compute": 1.96608,
+            "render": 8.192
+          },
+          {
+            "compute": 2.031616,
+            "render": 7.7987839999999995
+          }
+        ],
+        "memory": {
+          "attributes": 3,
+          "attributesSize": 196,
+          "geometries": 2,
+          "indexAttributes": 1,
+          "indexAttributesSize": 24,
+          "indirectStorageAttributes": 0,
+          "indirectStorageAttributesSize": 0,
+          "programs": 6,
+          "programsSize": 24183,
+          "readbackBuffers": 0,
+          "readbackBuffersSize": 0,
+          "renderTargets": 1,
+          "storageAttributes": 4,
+          "storageAttributesSize": 29360128,
+          "textures": 2,
+          "texturesSize": 31637760,
+          "uniformBuffers": 6,
+          "uniformBuffersSize": 576,
+          "total": 61022867
+        },
+        "draw": {
+          "calls": 756,
+          "frameCalls": 2,
+          "drawCalls": 2,
+          "triangles": 2097153,
+          "points": 0,
+          "lines": 0,
+          "timestamp": 7.7987839999999995
+        },
+        "sim": {
+          "integrator": "rk4",
+          "dt": 0.02,
+          "substeps": 4,
+          "timeScale": 1,
+          "paused": false,
+          "particleCount": 1048576
+        },
+        "render": {
+          "mode": "points",
+          "colormap": "inferno",
+          "colorBy": "speed",
+          "colorA": "#1a2b8f",
+          "colorB": "#ff9a3c",
+          "pointSize": 0.7,
+          "opacity": 0.13,
+          "trailLength": 19,
+          "trailWidth": 0.4,
+          "bloom": false,
+          "bloomStrength": 0.8,
+          "paperMode": false,
+          "glyphs": false,
+          "resolutionScale": 1,
+          "autoQuality": false,
+          "trailDensity": 1
+        },
+        "backend": "WebGPUBackend",
+        "tier": {
+          "name": "webgpu",
+          "maxParticles": 1048576,
+          "defaultParticles": 262144,
+          "trailT": 64,
+          "trailCount": 65536,
+          "bloomAllowed": true,
+          "dprCap": 2
+        },
+        "canvas": [
+          2140,
+          1232
+        ],
+        "adapter": {
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": ""
+        },
+        "glRenderer": null,
+        "particleStride": 4,
+        "trailStride": null,
+        "trailInstances": null,
+        "messages": [
+          "warning: The powerPreference option is currently ignored when calling requestAdapter() on Windows. See https://crbug.com/369219127"
+        ]
+      },
+      {
+        "name": "long-trails",
+        "url": "http://127.0.0.1:5173/?aq=0&rs=1&mode=trails&tl=64",
+        "frameMs": {
+          "mean": 46.42749999960264,
+          "p50": 46.299999952316284,
+          "p95": 51.60000014305115,
+          "max": 73.5,
+          "count": 240
+        },
+        "cpuSubmitMs": {
+          "mean": 1.3883333345254263,
+          "p50": 1.1000001430511475,
+          "p95": 3,
+          "max": 5.800000190734863,
+          "count": 240
+        },
+        "gpuComputeMs": {
+          "mean": 0.876544,
+          "p50": 0.65536,
+          "p95": 1.507328,
+          "max": 1.507328,
+          "count": 8
+        },
+        "gpuRenderMs": {
+          "mean": 44.48256,
+          "p50": 43.712512000000004,
+          "p95": 48.365568,
+          "max": 48.365568,
+          "count": 8
+        },
+        "gpuSamples": [
+          {
+            "compute": 0.589824,
+            "render": 43.712512000000004
+          },
+          {
+            "compute": 1.179648,
+            "render": 48.365568
+          },
+          {
+            "compute": 1.507328,
+            "render": 45.613056
+          },
+          {
+            "compute": 0.589824,
+            "render": 44.630016000000005
+          },
+          {
+            "compute": 0.589824,
+            "render": 43.58144
+          },
+          {
+            "compute": 1.3107199999999999,
+            "render": 43.58144
+          },
+          {
+            "compute": 0.65536,
+            "render": 43.122688000000004
+          },
+          {
+            "compute": 0.589824,
+            "render": 43.25376
+          }
+        ],
+        "memory": {
+          "attributes": 3,
+          "attributesSize": 116,
+          "geometries": 2,
+          "indexAttributes": 1,
+          "indexAttributesSize": 24,
+          "indirectStorageAttributes": 0,
+          "indirectStorageAttributesSize": 0,
+          "programs": 8,
+          "programsSize": 28983,
+          "readbackBuffers": 0,
+          "readbackBuffersSize": 0,
+          "renderTargets": 1,
+          "storageAttributes": 5,
+          "storageAttributesSize": 74448896,
+          "textures": 2,
+          "texturesSize": 31637760,
+          "uniformBuffers": 9,
+          "uniformBuffersSize": 704,
+          "total": 106116483
+        },
+        "draw": {
+          "calls": 732,
+          "frameCalls": 0,
+          "drawCalls": 0,
+          "triangles": 0,
+          "points": 0,
+          "lines": 0,
+          "timestamp": 43.25376
+        },
+        "sim": {
+          "integrator": "rk4",
+          "dt": 0.02,
+          "substeps": 4,
+          "timeScale": 1,
+          "paused": false,
+          "particleCount": 262144
+        },
+        "render": {
+          "mode": "trails",
+          "colormap": "inferno",
+          "colorBy": "speed",
+          "colorA": "#1a2b8f",
+          "colorB": "#ff9a3c",
+          "pointSize": 0.7,
+          "opacity": 0.13,
+          "trailLength": 64,
+          "trailWidth": 0.4,
+          "bloom": false,
+          "bloomStrength": 0.8,
+          "paperMode": false,
+          "glyphs": false,
+          "resolutionScale": 1,
+          "autoQuality": false,
+          "trailDensity": 1
+        },
+        "backend": "WebGPUBackend",
+        "tier": {
+          "name": "webgpu",
+          "maxParticles": 1048576,
+          "defaultParticles": 262144,
+          "trailT": 64,
+          "trailCount": 65536,
+          "bloomAllowed": true,
+          "dprCap": 2
+        },
+        "canvas": [
+          2140,
+          1232
+        ],
+        "adapter": {
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": ""
+        },
+        "glRenderer": null,
+        "particleStride": 4,
+        "trailStride": 4,
+        "trailInstances": 4128768,
+        "messages": [
+          "warning: The powerPreference option is currently ignored when calling requestAdapter() on Windows. See https://crbug.com/369219127"
+        ]
+      },
+      {
+        "name": "paused-points",
+        "url": "http://127.0.0.1:5173/?aq=0&rs=1",
+        "frameMs": {
+          "mean": 16.661666666467983,
+          "p50": 16.600000143051147,
+          "p95": 18.300000190734863,
+          "max": 21.700000047683716,
+          "count": 240
+        },
+        "cpuSubmitMs": {
+          "mean": 1.2600000033775964,
+          "p50": 1,
+          "p95": 3.299999952316284,
+          "max": 5.700000047683716,
+          "count": 240
+        },
+        "gpuComputeMs": {
+          "mean": 0.131072,
+          "p50": 0.131072,
+          "p95": 0.131072,
+          "max": 0.131072,
+          "count": 8
+        },
+        "gpuRenderMs": {
+          "mean": 5.636096,
+          "p50": 6.684672,
+          "p95": 7.929855999999999,
+          "max": 7.929855999999999,
+          "count": 8
+        },
+        "gpuSamples": [
+          {
+            "compute": 0.131072,
+            "render": 2.752512
+          },
+          {
+            "compute": 0.131072,
+            "render": 3.473408
+          },
+          {
+            "compute": 0.131072,
+            "render": 3.93216
+          },
+          {
+            "compute": 0.131072,
+            "render": 5.8982399999999995
+          },
+          {
+            "compute": 0.131072,
+            "render": 6.684672
+          },
+          {
+            "compute": 0.131072,
+            "render": 6.684672
+          },
+          {
+            "compute": 0.131072,
+            "render": 7.733248
+          },
+          {
+            "compute": 0.131072,
+            "render": 7.929855999999999
+          }
+        ],
+        "memory": {
+          "attributes": 3,
+          "attributesSize": 196,
+          "geometries": 2,
+          "indexAttributes": 1,
+          "indexAttributesSize": 24,
+          "indirectStorageAttributes": 0,
+          "indirectStorageAttributesSize": 0,
+          "programs": 5,
+          "programsSize": 12554,
+          "readbackBuffers": 0,
+          "readbackBuffersSize": 0,
+          "renderTargets": 1,
+          "storageAttributes": 4,
+          "storageAttributesSize": 7340032,
+          "textures": 2,
+          "texturesSize": 31637760,
+          "uniformBuffers": 5,
+          "uniformBuffersSize": 480,
+          "total": 38991046
+        },
+        "draw": {
+          "calls": 774,
+          "frameCalls": 2,
+          "drawCalls": 2,
+          "triangles": 524289,
+          "points": 0,
+          "lines": 0,
+          "timestamp": 7.929855999999999
+        },
+        "sim": {
+          "integrator": "rk4",
+          "dt": 0.02,
+          "substeps": 4,
+          "timeScale": 1,
+          "paused": true,
+          "particleCount": 262144
+        },
+        "render": {
+          "mode": "points",
+          "colormap": "inferno",
+          "colorBy": "speed",
+          "colorA": "#1a2b8f",
+          "colorB": "#ff9a3c",
+          "pointSize": 0.7,
+          "opacity": 0.13,
+          "trailLength": 19,
+          "trailWidth": 0.4,
+          "bloom": false,
+          "bloomStrength": 0.8,
+          "paperMode": false,
+          "glyphs": false,
+          "resolutionScale": 1,
+          "autoQuality": false,
+          "trailDensity": 1
+        },
+        "backend": "WebGPUBackend",
+        "tier": {
+          "name": "webgpu",
+          "maxParticles": 1048576,
+          "defaultParticles": 262144,
+          "trailT": 64,
+          "trailCount": 65536,
+          "bloomAllowed": true,
+          "dprCap": 2
+        },
+        "canvas": [
+          2140,
+          1232
+        ],
+        "adapter": {
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": ""
+        },
+        "glRenderer": null,
+        "particleStride": 4,
+        "trailStride": null,
+        "trailInstances": null,
+        "messages": [
+          "warning: The powerPreference option is currently ignored when calling requestAdapter() on Windows. See https://crbug.com/369219127"
+        ]
+      },
+      {
+        "name": "webgl-points",
+        "url": "http://127.0.0.1:5173/?aq=0&rs=1&forceWebGL",
+        "frameMs": {
+          "mean": 16.666250000397365,
+          "p50": 16.600000143051147,
+          "p95": 17.699999809265137,
+          "max": 18.699999809265137,
+          "count": 240
+        },
+        "cpuSubmitMs": {
+          "mean": 0.6391666640837987,
+          "p50": 0.5,
+          "p95": 1.3999998569488525,
+          "max": 3,
+          "count": 240
+        },
+        "gpuComputeMs": null,
+        "gpuRenderMs": null,
+        "gpuSamples": [],
+        "memory": {
+          "attributes": 3,
+          "attributesSize": 196,
+          "geometries": 2,
+          "indexAttributes": 1,
+          "indexAttributesSize": 12,
+          "indirectStorageAttributes": 0,
+          "indirectStorageAttributesSize": 0,
+          "programs": 6,
+          "programsSize": 23250,
+          "readbackBuffers": 0,
+          "readbackBuffersSize": 0,
+          "renderTargets": 1,
+          "storageAttributes": 3,
+          "storageAttributesSize": 2621440,
+          "textures": 6,
+          "texturesSize": 34783488,
+          "uniformBuffers": 6,
+          "uniformBuffersSize": 560,
+          "total": 37428946
+        },
+        "draw": {
+          "calls": 796,
+          "frameCalls": 2,
+          "drawCalls": 2,
+          "triangles": 262145,
+          "points": 0,
+          "lines": 0,
+          "timestamp": 0
+        },
+        "sim": {
+          "integrator": "rk4",
+          "dt": 0.02,
+          "substeps": 4,
+          "timeScale": 1,
+          "paused": false,
+          "particleCount": 131072
+        },
+        "render": {
+          "mode": "points",
+          "colormap": "inferno",
+          "colorBy": "speed",
+          "colorA": "#1a2b8f",
+          "colorB": "#ff9a3c",
+          "pointSize": 0.7,
+          "opacity": 0.13,
+          "trailLength": 19,
+          "trailWidth": 0.4,
+          "bloom": false,
+          "bloomStrength": 0.8,
+          "paperMode": false,
+          "glyphs": false,
+          "resolutionScale": 1,
+          "autoQuality": false,
+          "trailDensity": 1
+        },
+        "backend": "WebGLBackend",
+        "tier": {
+          "name": "webgl2",
+          "maxParticles": 131072,
+          "defaultParticles": 131072,
+          "trailT": 32,
+          "trailCount": 16384,
+          "bloomAllowed": false,
+          "dprCap": 2
+        },
+        "canvas": [
+          2140,
+          1232
+        ],
+        "adapter": null,
+        "glRenderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x000046A3) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "particleStride": 3,
+        "trailStride": null,
+        "trailInstances": null,
+        "messages": [
+          "warning: THREE.WebGPURenderer: Timestamp tracking is disabled."
+        ]
+      },
+      {
+        "name": "webgl-trails",
+        "url": "http://127.0.0.1:5173/?aq=0&rs=1&forceWebGL&mode=trails",
+        "frameMs": {
+          "mean": 27.488749999801318,
+          "p50": 25.700000047683716,
+          "p95": 42.60000014305115,
+          "max": 49.700000047683716,
+          "count": 240
+        },
+        "cpuSubmitMs": {
+          "mean": 0.9637500047683716,
+          "p50": 0.7999999523162842,
+          "p95": 2.299999952316284,
+          "max": 3.9000000953674316,
+          "count": 240
+        },
+        "gpuComputeMs": null,
+        "gpuRenderMs": null,
+        "gpuSamples": [],
+        "memory": {
+          "attributes": 3,
+          "attributesSize": 116,
+          "geometries": 2,
+          "indexAttributes": 1,
+          "indexAttributesSize": 12,
+          "indirectStorageAttributes": 0,
+          "indirectStorageAttributesSize": 0,
+          "programs": 8,
+          "programsSize": 28048,
+          "readbackBuffers": 0,
+          "readbackBuffersSize": 0,
+          "renderTargets": 1,
+          "storageAttributes": 0,
+          "storageAttributesSize": 0,
+          "textures": 7,
+          "texturesSize": 41074944,
+          "uniformBuffers": 8,
+          "uniformBuffersSize": 672,
+          "total": 41103792
+        },
+        "draw": {
+          "calls": 788,
+          "frameCalls": 2,
+          "drawCalls": 3,
+          "triangles": 1179649,
+          "points": 0,
+          "lines": 0,
+          "timestamp": 0
+        },
+        "sim": {
+          "integrator": "rk4",
+          "dt": 0.02,
+          "substeps": 4,
+          "timeScale": 1,
+          "paused": false,
+          "particleCount": 131072
+        },
+        "render": {
+          "mode": "trails",
+          "colormap": "inferno",
+          "colorBy": "speed",
+          "colorA": "#1a2b8f",
+          "colorB": "#ff9a3c",
+          "pointSize": 0.7,
+          "opacity": 0.13,
+          "trailLength": 19,
+          "trailWidth": 0.4,
+          "bloom": false,
+          "bloomStrength": 0.8,
+          "paperMode": false,
+          "glyphs": false,
+          "resolutionScale": 1,
+          "autoQuality": false,
+          "trailDensity": 1
+        },
+        "backend": "WebGLBackend",
+        "tier": {
+          "name": "webgl2",
+          "maxParticles": 131072,
+          "defaultParticles": 131072,
+          "trailT": 32,
+          "trailCount": 16384,
+          "bloomAllowed": false,
+          "dprCap": 2
+        },
+        "canvas": [
+          2140,
+          1232
+        ],
+        "adapter": null,
+        "glRenderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x000046A3) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "particleStride": 3,
+        "trailStride": 3,
+        "trailInstances": 294912,
+        "messages": [
+          "warning: THREE.WebGPURenderer: Timestamp tracking is disabled."
+        ]
+      }
+    ]
+  },
+  "resolutionDiagnostic": {
+    "browser": "156.0.8078.47",
+    "viewport": [
+      1440,
+      900
+    ],
+    "dpr": 2,
+    "warmupFrames": 120,
+    "sampleFrames": 240,
+    "cases": [
+      {
+        "name": "diagnostic-points-half-resolution",
+        "url": "http://127.0.0.1:5173/?aq=0&rs=0.5",
+        "frameMs": {
+          "mean": 16.668333333730697,
+          "p50": 16.600000143051147,
+          "p95": 18.799999952316284,
+          "max": 23.59999990463257,
+          "count": 240
+        },
+        "cpuSubmitMs": {
+          "mean": 1.3174999952316284,
+          "p50": 0.8999998569488525,
+          "p95": 3.3999998569488525,
+          "max": 5.700000047683716,
+          "count": 240
+        },
+        "gpuComputeMs": {
+          "mean": 0.8519679999999998,
+          "p50": 0.917504,
+          "p95": 1.048576,
+          "max": 1.048576,
+          "count": 8
+        },
+        "gpuRenderMs": {
+          "mean": 2.8098560000000004,
+          "p50": 2.9491199999999997,
+          "p95": 3.407872,
+          "max": 3.407872,
+          "count": 8
+        },
+        "gpuSamples": [
+          {
+            "compute": 0.65536,
+            "render": 2.228224
+          },
+          {
+            "compute": 0.917504,
+            "render": 2.9491199999999997
+          },
+          {
+            "compute": 1.048576,
+            "render": 3.407872
+          },
+          {
+            "compute": 0.98304,
+            "render": 3.145728
+          },
+          {
+            "compute": 0.917504,
+            "render": 2.94912
+          },
+          {
+            "compute": 0.786432,
+            "render": 2.883584
+          },
+          {
+            "compute": 0.786432,
+            "render": 2.6869759999999996
+          },
+          {
+            "compute": 0.720896,
+            "render": 2.228224
+          }
+        ],
+        "memory": {
+          "attributes": 3,
+          "attributesSize": 196,
+          "geometries": 2,
+          "indexAttributes": 1,
+          "indexAttributesSize": 24,
+          "indirectStorageAttributes": 0,
+          "indirectStorageAttributesSize": 0,
+          "programs": 6,
+          "programsSize": 24183,
+          "readbackBuffers": 0,
+          "readbackBuffersSize": 0,
+          "renderTargets": 1,
+          "storageAttributes": 4,
+          "storageAttributesSize": 7340032,
+          "textures": 2,
+          "texturesSize": 7909440,
+          "uniformBuffers": 6,
+          "uniformBuffersSize": 576,
+          "total": 15274451
+        },
+        "draw": {
+          "calls": 772,
+          "frameCalls": 2,
+          "drawCalls": 2,
+          "triangles": 524289,
+          "points": 0,
+          "lines": 0,
+          "timestamp": 2.228224
+        },
+        "sim": {
+          "integrator": "rk4",
+          "dt": 0.02,
+          "substeps": 4,
+          "timeScale": 1,
+          "paused": false,
+          "particleCount": 262144
+        },
+        "render": {
+          "mode": "points",
+          "colormap": "inferno",
+          "colorBy": "speed",
+          "colorA": "#1a2b8f",
+          "colorB": "#ff9a3c",
+          "pointSize": 0.7,
+          "opacity": 0.13,
+          "trailLength": 19,
+          "trailWidth": 0.4,
+          "bloom": false,
+          "bloomStrength": 0.8,
+          "paperMode": false,
+          "glyphs": false,
+          "resolutionScale": 0.5,
+          "autoQuality": false,
+          "trailDensity": 1
+        },
+        "backend": "WebGPUBackend",
+        "tier": {
+          "name": "webgpu",
+          "maxParticles": 1048576,
+          "defaultParticles": 262144,
+          "trailT": 64,
+          "trailCount": 65536,
+          "bloomAllowed": true,
+          "dprCap": 2
+        },
+        "canvas": [
+          1070,
+          616
+        ],
+        "adapter": {
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": ""
+        },
+        "glRenderer": null,
+        "particleStride": 4,
+        "trailStride": null,
+        "trailInstances": null,
+        "messages": [
+          "warning: The powerPreference option is currently ignored when calling requestAdapter() on Windows. See https://crbug.com/369219127",
+          "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+        ]
+      },
+      {
+        "name": "diagnostic-long-trails-half-resolution",
+        "url": "http://127.0.0.1:5173/?aq=0&rs=0.5&mode=trails&tl=64",
+        "frameMs": {
+          "mean": 37.99541666706403,
+          "p50": 38,
+          "p95": 41.39999985694885,
+          "max": 64.20000004768372,
+          "count": 240
+        },
+        "cpuSubmitMs": {
+          "mean": 1.610833332935969,
+          "p50": 1,
+          "p95": 4.299999952316284,
+          "max": 6,
+          "count": 240
+        },
+        "gpuComputeMs": {
+          "mean": 1.2288000000000001,
+          "p50": 1.6384,
+          "p95": 2.228224,
+          "max": 2.228224,
+          "count": 8
+        },
+        "gpuRenderMs": {
+          "mean": 36.16768,
+          "p50": 36.306943999999994,
+          "p95": 36.765696000000005,
+          "max": 36.765696000000005,
+          "count": 8
+        },
+        "gpuSamples": [
+          {
+            "compute": 0.5242880000000001,
+            "render": 35.848192
+          },
+          {
+            "compute": 2.031616,
+            "render": 36.765696000000005
+          },
+          {
+            "compute": 0.589824,
+            "render": 36.044799999999995
+          },
+          {
+            "compute": 0.589824,
+            "render": 36.110336000000004
+          },
+          {
+            "compute": 0.5242880000000001,
+            "render": 36.438016
+          },
+          {
+            "compute": 2.228224,
+            "render": 35.454976
+          },
+          {
+            "compute": 1.6384,
+            "render": 36.372479999999996
+          },
+          {
+            "compute": 1.703936,
+            "render": 36.306943999999994
+          }
+        ],
+        "memory": {
+          "attributes": 3,
+          "attributesSize": 116,
+          "geometries": 2,
+          "indexAttributes": 1,
+          "indexAttributesSize": 24,
+          "indirectStorageAttributes": 0,
+          "indirectStorageAttributesSize": 0,
+          "programs": 8,
+          "programsSize": 28983,
+          "readbackBuffers": 0,
+          "readbackBuffersSize": 0,
+          "renderTargets": 1,
+          "storageAttributes": 5,
+          "storageAttributesSize": 74448896,
+          "textures": 2,
+          "texturesSize": 7909440,
+          "uniformBuffers": 9,
+          "uniformBuffersSize": 704,
+          "total": 82388163
+        },
+        "draw": {
+          "calls": 734,
+          "frameCalls": 0,
+          "drawCalls": 0,
+          "triangles": 0,
+          "points": 0,
+          "lines": 0,
+          "timestamp": 36.306943999999994
+        },
+        "sim": {
+          "integrator": "rk4",
+          "dt": 0.02,
+          "substeps": 4,
+          "timeScale": 1,
+          "paused": false,
+          "particleCount": 262144
+        },
+        "render": {
+          "mode": "trails",
+          "colormap": "inferno",
+          "colorBy": "speed",
+          "colorA": "#1a2b8f",
+          "colorB": "#ff9a3c",
+          "pointSize": 0.7,
+          "opacity": 0.13,
+          "trailLength": 64,
+          "trailWidth": 0.4,
+          "bloom": false,
+          "bloomStrength": 0.8,
+          "paperMode": false,
+          "glyphs": false,
+          "resolutionScale": 0.5,
+          "autoQuality": false,
+          "trailDensity": 1
+        },
+        "backend": "WebGPUBackend",
+        "tier": {
+          "name": "webgpu",
+          "maxParticles": 1048576,
+          "defaultParticles": 262144,
+          "trailT": 64,
+          "trailCount": 65536,
+          "bloomAllowed": true,
+          "dprCap": 2
+        },
+        "canvas": [
+          1070,
+          616
+        ],
+        "adapter": {
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": ""
+        },
+        "glRenderer": null,
+        "particleStride": 4,
+        "trailStride": 4,
+        "trailInstances": 4128768,
+        "messages": [
+          "warning: The powerPreference option is currently ignored when calling requestAdapter() on Windows. See https://crbug.com/369219127"
+        ]
+      }
+    ]
+  },
+  "layoutExperiment": [
+    {
+      "case": "trails19",
+      "variant": "baseline",
+      "frameMs": {
+        "mean": 16.736666666467986,
+        "p50": 16.700000047683716,
+        "p95": 17.700000047683716,
+        "max": 22.59999990463257,
+        "count": 240
+      },
+      "cpuSubmitMs": {
+        "mean": 0.905416672428449,
+        "p50": 0.7000000476837158,
+        "p95": 2,
+        "max": 3,
+        "count": 240
+      },
+      "gpuComputeMs": {
+        "mean": 0.6799360000000001,
+        "p50": 0.589824,
+        "p95": 1.376256,
+        "max": 1.376256,
+        "count": 8
+      },
+      "gpuRenderMs": {
+        "mean": 14.139392,
+        "p50": 14.41792,
+        "p95": 15.925248,
+        "max": 15.925248,
+        "count": 8
+      },
+      "gpuSamples": [
+        {
+          "compute": 0.589824,
+          "render": 15.794176
+        },
+        {
+          "compute": 1.376256,
+          "render": 14.41792
+        },
+        {
+          "compute": 0.589824,
+          "render": 15.925248
+        },
+        {
+          "compute": 0.589824,
+          "render": 13.828096
+        },
+        {
+          "compute": 0.589824,
+          "render": 14.614528
+        },
+        {
+          "compute": 0.589824,
+          "render": 13.238272
+        },
+        {
+          "compute": 0.5242880000000001,
+          "render": 12.517376
+        },
+        {
+          "compute": 0.589824,
+          "render": 12.77952
+        }
+      ],
+      "memory": {
+        "attributes": 3,
+        "attributesSize": 116,
+        "geometries": 2,
+        "indexAttributes": 1,
+        "indexAttributesSize": 24,
+        "indirectStorageAttributes": 0,
+        "indirectStorageAttributesSize": 0,
+        "programs": 8,
+        "programsSize": 28983,
+        "readbackBuffers": 0,
+        "readbackBuffersSize": 0,
+        "renderTargets": 1,
+        "storageAttributes": 5,
+        "storageAttributesSize": 74448896,
+        "textures": 2,
+        "texturesSize": 31637760,
+        "uniformBuffers": 9,
+        "uniformBuffersSize": 704,
+        "total": 106116483
+      },
+      "draw": {
+        "calls": 740,
+        "frameCalls": 0,
+        "drawCalls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0,
+        "timestamp": 12.77952
+      },
+      "sim": {
+        "integrator": "rk4",
+        "dt": 0.02,
+        "substeps": 4,
+        "timeScale": 1,
+        "paused": false,
+        "particleCount": 262144
+      },
+      "render": {
+        "mode": "trails",
+        "colormap": "inferno",
+        "colorBy": "speed",
+        "colorA": "#1a2b8f",
+        "colorB": "#ff9a3c",
+        "pointSize": 0.7,
+        "opacity": 0.13,
+        "trailLength": 19,
+        "trailWidth": 0.4,
+        "bloom": false,
+        "bloomStrength": 0.8,
+        "paperMode": false,
+        "glyphs": false,
+        "resolutionScale": 1,
+        "autoQuality": false,
+        "trailDensity": 1
+      },
+      "backend": "WebGPUBackend",
+      "tier": {
+        "name": "webgpu",
+        "maxParticles": 1048576,
+        "defaultParticles": 262144,
+        "trailT": 64,
+        "trailCount": 65536,
+        "bloomAllowed": true,
+        "dprCap": 2
+      },
+      "canvas": [
+        2140,
+        1232
+      ],
+      "adapter": {
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "device": "",
+        "description": ""
+      },
+      "glRenderer": null,
+      "particleStride": 4,
+      "trailStride": 4,
+      "trailInstances": 1179648,
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "case": "trails19",
+      "variant": "slot-major",
+      "frameMs": {
+        "mean": 16.666250000397365,
+        "p50": 16.700000047683716,
+        "p95": 17.200000047683716,
+        "max": 20.700000047683716,
+        "count": 240
+      },
+      "cpuSubmitMs": {
+        "mean": 0.8958333313465119,
+        "p50": 0.5999999046325684,
+        "p95": 2.4000000953674316,
+        "max": 3.5,
+        "count": 240
+      },
+      "gpuComputeMs": {
+        "mean": 0.434176,
+        "p50": 0.458752,
+        "p95": 0.524288,
+        "max": 0.524288,
+        "count": 8
+      },
+      "gpuRenderMs": {
+        "mean": 10.36288,
+        "p50": 10.354688,
+        "p95": 12.058624,
+        "max": 12.058624,
+        "count": 8
+      },
+      "gpuSamples": [
+        {
+          "compute": 0.393216,
+          "render": 9.371648
+        },
+        {
+          "compute": 0.45875200000000005,
+          "render": 10.354688
+        },
+        {
+          "compute": 0.458752,
+          "render": 10.878976
+        },
+        {
+          "compute": 0.393216,
+          "render": 9.895936
+        },
+        {
+          "compute": 0.524288,
+          "render": 12.058624
+        },
+        {
+          "compute": 0.458752,
+          "render": 10.354688
+        },
+        {
+          "compute": 0.393216,
+          "render": 9.240575999999999
+        },
+        {
+          "compute": 0.393216,
+          "render": 10.747904
+        }
+      ],
+      "memory": {
+        "attributes": 3,
+        "attributesSize": 116,
+        "geometries": 2,
+        "indexAttributes": 1,
+        "indexAttributesSize": 24,
+        "indirectStorageAttributes": 0,
+        "indirectStorageAttributesSize": 0,
+        "programs": 8,
+        "programsSize": 28965,
+        "readbackBuffers": 0,
+        "readbackBuffersSize": 0,
+        "renderTargets": 1,
+        "storageAttributes": 5,
+        "storageAttributesSize": 74448896,
+        "textures": 2,
+        "texturesSize": 31637760,
+        "uniformBuffers": 9,
+        "uniformBuffersSize": 704,
+        "total": 106116465
+      },
+      "draw": {
+        "calls": 752,
+        "frameCalls": 2,
+        "drawCalls": 3,
+        "triangles": 4718593,
+        "points": 0,
+        "lines": 0,
+        "timestamp": 10.747904
+      },
+      "sim": {
+        "integrator": "rk4",
+        "dt": 0.02,
+        "substeps": 4,
+        "timeScale": 1,
+        "paused": false,
+        "particleCount": 262144
+      },
+      "render": {
+        "mode": "trails",
+        "colormap": "inferno",
+        "colorBy": "speed",
+        "colorA": "#1a2b8f",
+        "colorB": "#ff9a3c",
+        "pointSize": 0.7,
+        "opacity": 0.13,
+        "trailLength": 19,
+        "trailWidth": 0.4,
+        "bloom": false,
+        "bloomStrength": 0.8,
+        "paperMode": false,
+        "glyphs": false,
+        "resolutionScale": 1,
+        "autoQuality": false,
+        "trailDensity": 1
+      },
+      "backend": "WebGPUBackend",
+      "tier": {
+        "name": "webgpu",
+        "maxParticles": 1048576,
+        "defaultParticles": 262144,
+        "trailT": 64,
+        "trailCount": 65536,
+        "bloomAllowed": true,
+        "dprCap": 2
+      },
+      "canvas": [
+        2140,
+        1232
+      ],
+      "adapter": {
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "device": "",
+        "description": ""
+      },
+      "glRenderer": null,
+      "particleStride": 4,
+      "trailStride": 4,
+      "trailInstances": 1179648,
+      "errors": []
+    },
+    {
+      "case": "trails64",
+      "variant": "baseline",
+      "frameMs": {
+        "mean": 48.878333334128065,
+        "p50": 49.09999990463257,
+        "p95": 52.40000009536743,
+        "max": 73.70000004768372,
+        "count": 240
+      },
+      "cpuSubmitMs": {
+        "mean": 1.1154166529575984,
+        "p50": 1,
+        "p95": 2.200000047683716,
+        "max": 3.200000047683716,
+        "count": 240
+      },
+      "gpuComputeMs": {
+        "mean": 1.007616,
+        "p50": 0.65536,
+        "p95": 1.9660799999999998,
+        "max": 1.9660799999999998,
+        "count": 8
+      },
+      "gpuRenderMs": {
+        "mean": 47.128576,
+        "p50": 47.120384,
+        "p95": 50.135040000000004,
+        "max": 50.135040000000004,
+        "count": 8
+      },
+      "gpuSamples": [
+        {
+          "compute": 0.589824,
+          "render": 44.761088
+        },
+        {
+          "compute": 1.507328,
+          "render": 46.989312
+        },
+        {
+          "compute": 1.9660799999999998,
+          "render": 50.135040000000004
+        },
+        {
+          "compute": 0.589824,
+          "render": 48.955392
+        },
+        {
+          "compute": 0.65536,
+          "render": 47.120384
+        },
+        {
+          "compute": 1.507328,
+          "render": 45.416448
+        },
+        {
+          "compute": 0.589824,
+          "render": 45.416448
+        },
+        {
+          "compute": 0.65536,
+          "render": 48.234496
+        }
+      ],
+      "memory": {
+        "attributes": 3,
+        "attributesSize": 116,
+        "geometries": 2,
+        "indexAttributes": 1,
+        "indexAttributesSize": 24,
+        "indirectStorageAttributes": 0,
+        "indirectStorageAttributesSize": 0,
+        "programs": 8,
+        "programsSize": 28983,
+        "readbackBuffers": 0,
+        "readbackBuffersSize": 0,
+        "renderTargets": 1,
+        "storageAttributes": 5,
+        "storageAttributesSize": 74448896,
+        "textures": 2,
+        "texturesSize": 31637760,
+        "uniformBuffers": 9,
+        "uniformBuffersSize": 704,
+        "total": 106116483
+      },
+      "draw": {
+        "calls": 738,
+        "frameCalls": 0,
+        "drawCalls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0,
+        "timestamp": 48.234496
+      },
+      "sim": {
+        "integrator": "rk4",
+        "dt": 0.02,
+        "substeps": 4,
+        "timeScale": 1,
+        "paused": false,
+        "particleCount": 262144
+      },
+      "render": {
+        "mode": "trails",
+        "colormap": "inferno",
+        "colorBy": "speed",
+        "colorA": "#1a2b8f",
+        "colorB": "#ff9a3c",
+        "pointSize": 0.7,
+        "opacity": 0.13,
+        "trailLength": 64,
+        "trailWidth": 0.4,
+        "bloom": false,
+        "bloomStrength": 0.8,
+        "paperMode": false,
+        "glyphs": false,
+        "resolutionScale": 1,
+        "autoQuality": false,
+        "trailDensity": 1
+      },
+      "backend": "WebGPUBackend",
+      "tier": {
+        "name": "webgpu",
+        "maxParticles": 1048576,
+        "defaultParticles": 262144,
+        "trailT": 64,
+        "trailCount": 65536,
+        "bloomAllowed": true,
+        "dprCap": 2
+      },
+      "canvas": [
+        2140,
+        1232
+      ],
+      "adapter": {
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "device": "",
+        "description": ""
+      },
+      "glRenderer": null,
+      "particleStride": 4,
+      "trailStride": 4,
+      "trailInstances": 4128768,
+      "errors": []
+    },
+    {
+      "case": "trails64",
+      "variant": "slot-major",
+      "frameMs": {
+        "mean": 35.18625000019868,
+        "p50": 35,
+        "p95": 39.90000009536743,
+        "max": 52.799999952316284,
+        "count": 240
+      },
+      "cpuSubmitMs": {
+        "mean": 1.0895833333333333,
+        "p50": 1,
+        "p95": 2.1000001430511475,
+        "max": 3,
+        "count": 240
+      },
+      "gpuComputeMs": {
+        "mean": 0.5980160000000001,
+        "p50": 0.45875200000000005,
+        "p95": 1.7039360000000001,
+        "max": 1.7039360000000001,
+        "count": 8
+      },
+      "gpuRenderMs": {
+        "mean": 33.210368,
+        "p50": 33.161216,
+        "p95": 35.782656,
+        "max": 35.782656,
+        "count": 8
+      },
+      "gpuSamples": [
+        {
+          "compute": 0.45875200000000005,
+          "render": 31.522816000000002
+        },
+        {
+          "compute": 0.393216,
+          "render": 35.782656
+        },
+        {
+          "compute": 0.45875200000000005,
+          "render": 34.930688
+        },
+        {
+          "compute": 0.45875200000000005,
+          "render": 33.619968
+        },
+        {
+          "compute": 0.393216,
+          "render": 32.768
+        },
+        {
+          "compute": 0.45875200000000005,
+          "render": 33.161216
+        },
+        {
+          "compute": 0.458752,
+          "render": 32.243712
+        },
+        {
+          "compute": 1.7039360000000001,
+          "render": 31.653888000000002
+        }
+      ],
+      "memory": {
+        "attributes": 3,
+        "attributesSize": 116,
+        "geometries": 2,
+        "indexAttributes": 1,
+        "indexAttributesSize": 24,
+        "indirectStorageAttributes": 0,
+        "indirectStorageAttributesSize": 0,
+        "programs": 8,
+        "programsSize": 28965,
+        "readbackBuffers": 0,
+        "readbackBuffersSize": 0,
+        "renderTargets": 1,
+        "storageAttributes": 5,
+        "storageAttributesSize": 74448896,
+        "textures": 2,
+        "texturesSize": 31637760,
+        "uniformBuffers": 9,
+        "uniformBuffersSize": 704,
+        "total": 106116465
+      },
+      "draw": {
+        "calls": 744,
+        "frameCalls": 0,
+        "drawCalls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0,
+        "timestamp": 31.653888000000002
+      },
+      "sim": {
+        "integrator": "rk4",
+        "dt": 0.02,
+        "substeps": 4,
+        "timeScale": 1,
+        "paused": false,
+        "particleCount": 262144
+      },
+      "render": {
+        "mode": "trails",
+        "colormap": "inferno",
+        "colorBy": "speed",
+        "colorA": "#1a2b8f",
+        "colorB": "#ff9a3c",
+        "pointSize": 0.7,
+        "opacity": 0.13,
+        "trailLength": 64,
+        "trailWidth": 0.4,
+        "bloom": false,
+        "bloomStrength": 0.8,
+        "paperMode": false,
+        "glyphs": false,
+        "resolutionScale": 1,
+        "autoQuality": false,
+        "trailDensity": 1
+      },
+      "backend": "WebGPUBackend",
+      "tier": {
+        "name": "webgpu",
+        "maxParticles": 1048576,
+        "defaultParticles": 262144,
+        "trailT": 64,
+        "trailCount": 65536,
+        "bloomAllowed": true,
+        "dprCap": 2
+      },
+      "canvas": [
+        2140,
+        1232
+      ],
+      "adapter": {
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "device": "",
+        "description": ""
+      },
+      "glRenderer": null,
+      "particleStride": 4,
+      "trailStride": 4,
+      "trailInstances": 4128768,
+      "errors": []
+    },
+    {
+      "case": "webgl-trails",
+      "variant": "baseline",
+      "frameMs": {
+        "mean": 16.75291666686535,
+        "p50": 16.699999809265137,
+        "p95": 18.100000143051147,
+        "max": 22.700000047683716,
+        "count": 240
+      },
+      "cpuSubmitMs": {
+        "mean": 0.6320833384990692,
+        "p50": 0.5999999046325684,
+        "p95": 1.2999999523162842,
+        "max": 2.1000001430511475,
+        "count": 240
+      },
+      "gpuComputeMs": null,
+      "gpuRenderMs": null,
+      "gpuSamples": [],
+      "memory": {
+        "attributes": 3,
+        "attributesSize": 116,
+        "geometries": 2,
+        "indexAttributes": 1,
+        "indexAttributesSize": 12,
+        "indirectStorageAttributes": 0,
+        "indirectStorageAttributesSize": 0,
+        "programs": 8,
+        "programsSize": 28048,
+        "readbackBuffers": 0,
+        "readbackBuffersSize": 0,
+        "renderTargets": 1,
+        "storageAttributes": 0,
+        "storageAttributesSize": 0,
+        "textures": 7,
+        "texturesSize": 41074944,
+        "uniformBuffers": 8,
+        "uniformBuffersSize": 672,
+        "total": 41103792
+      },
+      "draw": {
+        "calls": 788,
+        "frameCalls": 2,
+        "drawCalls": 3,
+        "triangles": 1179649,
+        "points": 0,
+        "lines": 0,
+        "timestamp": 0
+      },
+      "sim": {
+        "integrator": "rk4",
+        "dt": 0.02,
+        "substeps": 4,
+        "timeScale": 1,
+        "paused": false,
+        "particleCount": 131072
+      },
+      "render": {
+        "mode": "trails",
+        "colormap": "inferno",
+        "colorBy": "speed",
+        "colorA": "#1a2b8f",
+        "colorB": "#ff9a3c",
+        "pointSize": 0.7,
+        "opacity": 0.13,
+        "trailLength": 19,
+        "trailWidth": 0.4,
+        "bloom": false,
+        "bloomStrength": 0.8,
+        "paperMode": false,
+        "glyphs": false,
+        "resolutionScale": 1,
+        "autoQuality": false,
+        "trailDensity": 1
+      },
+      "backend": "WebGLBackend",
+      "tier": {
+        "name": "webgl2",
+        "maxParticles": 131072,
+        "defaultParticles": 131072,
+        "trailT": 32,
+        "trailCount": 16384,
+        "bloomAllowed": false,
+        "dprCap": 2
+      },
+      "canvas": [
+        2140,
+        1232
+      ],
+      "adapter": null,
+      "glRenderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x000046A3) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "particleStride": 3,
+      "trailStride": 3,
+      "trailInstances": 294912,
+      "errors": []
+    },
+    {
+      "case": "webgl-trails",
+      "variant": "slot-major",
+      "frameMs": {
+        "mean": 19.317916666467983,
+        "p50": 18.699999809265137,
+        "p95": 26.40000009536743,
+        "max": 29.399999856948853,
+        "count": 240
+      },
+      "cpuSubmitMs": {
+        "mean": 0.6608333388964335,
+        "p50": 0.6000001430511475,
+        "p95": 1.1999998092651367,
+        "max": 2,
+        "count": 240
+      },
+      "gpuComputeMs": null,
+      "gpuRenderMs": null,
+      "gpuSamples": [],
+      "memory": {
+        "attributes": 3,
+        "attributesSize": 116,
+        "geometries": 2,
+        "indexAttributes": 1,
+        "indexAttributesSize": 12,
+        "indirectStorageAttributes": 0,
+        "indirectStorageAttributesSize": 0,
+        "programs": 8,
+        "programsSize": 28060,
+        "readbackBuffers": 0,
+        "readbackBuffersSize": 0,
+        "renderTargets": 1,
+        "storageAttributes": 0,
+        "storageAttributesSize": 0,
+        "textures": 7,
+        "texturesSize": 41074944,
+        "uniformBuffers": 8,
+        "uniformBuffersSize": 672,
+        "total": 41103804
+      },
+      "draw": {
+        "calls": 764,
+        "frameCalls": 2,
+        "drawCalls": 3,
+        "triangles": 1179649,
+        "points": 0,
+        "lines": 0,
+        "timestamp": 0
+      },
+      "sim": {
+        "integrator": "rk4",
+        "dt": 0.02,
+        "substeps": 4,
+        "timeScale": 1,
+        "paused": false,
+        "particleCount": 131072
+      },
+      "render": {
+        "mode": "trails",
+        "colormap": "inferno",
+        "colorBy": "speed",
+        "colorA": "#1a2b8f",
+        "colorB": "#ff9a3c",
+        "pointSize": 0.7,
+        "opacity": 0.13,
+        "trailLength": 19,
+        "trailWidth": 0.4,
+        "bloom": false,
+        "bloomStrength": 0.8,
+        "paperMode": false,
+        "glyphs": false,
+        "resolutionScale": 1,
+        "autoQuality": false,
+        "trailDensity": 1
+      },
+      "backend": "WebGLBackend",
+      "tier": {
+        "name": "webgl2",
+        "maxParticles": 131072,
+        "defaultParticles": 131072,
+        "trailT": 32,
+        "trailCount": 16384,
+        "bloomAllowed": false,
+        "dprCap": 2
+      },
+      "canvas": [
+        2140,
+        1232
+      ],
+      "adapter": null,
+      "glRenderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x000046A3) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "particleStride": 3,
+      "trailStride": 3,
+      "trailInstances": 294912,
+      "errors": []
+    }
+  ],
+  "layoutReverseOrder": [
+    {
+      "case": "trails19",
+      "variant": "slot-major",
+      "frameMs": {
+        "mean": 16.667916666467985,
+        "p50": 16.699999809265137,
+        "p95": 17.299999952316284,
+        "max": 20.700000047683716,
+        "count": 240
+      },
+      "cpuSubmitMs": {
+        "mean": 0.9716666609048843,
+        "p50": 0.7000000476837158,
+        "p95": 2.4000000953674316,
+        "max": 3.8999998569488525,
+        "count": 240
+      },
+      "gpuComputeMs": {
+        "mean": 0.4341759999999999,
+        "p50": 0.458752,
+        "p95": 0.524288,
+        "max": 0.524288,
+        "count": 8
+      },
+      "gpuRenderMs": {
+        "mean": 10.379264,
+        "p50": 10.289152,
+        "p95": 12.648448,
+        "max": 12.648448,
+        "count": 8
+      },
+      "gpuSamples": [
+        {
+          "compute": 0.458752,
+          "render": 11.14112
+        },
+        {
+          "compute": 0.458752,
+          "render": 10.485759999999999
+        },
+        {
+          "compute": 0.393216,
+          "render": 10.289152
+        },
+        {
+          "compute": 0.45875200000000005,
+          "render": 10.289152
+        },
+        {
+          "compute": 0.524288,
+          "render": 12.648448
+        },
+        {
+          "compute": 0.393216,
+          "render": 9.961472
+        },
+        {
+          "compute": 0.393216,
+          "render": 9.043968
+        },
+        {
+          "compute": 0.393216,
+          "render": 9.17504
+        }
+      ],
+      "memory": {
+        "attributes": 3,
+        "attributesSize": 116,
+        "geometries": 2,
+        "indexAttributes": 1,
+        "indexAttributesSize": 24,
+        "indirectStorageAttributes": 0,
+        "indirectStorageAttributesSize": 0,
+        "programs": 8,
+        "programsSize": 28965,
+        "readbackBuffers": 0,
+        "readbackBuffersSize": 0,
+        "renderTargets": 1,
+        "storageAttributes": 5,
+        "storageAttributesSize": 74448896,
+        "textures": 2,
+        "texturesSize": 31637760,
+        "uniformBuffers": 9,
+        "uniformBuffersSize": 704,
+        "total": 106116465
+      },
+      "draw": {
+        "calls": 750,
+        "frameCalls": 0,
+        "drawCalls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0,
+        "timestamp": 9.17504
+      },
+      "sim": {
+        "integrator": "rk4",
+        "dt": 0.02,
+        "substeps": 4,
+        "timeScale": 1,
+        "paused": false,
+        "particleCount": 262144
+      },
+      "render": {
+        "mode": "trails",
+        "colormap": "inferno",
+        "colorBy": "speed",
+        "colorA": "#1a2b8f",
+        "colorB": "#ff9a3c",
+        "pointSize": 0.7,
+        "opacity": 0.13,
+        "trailLength": 19,
+        "trailWidth": 0.4,
+        "bloom": false,
+        "bloomStrength": 0.8,
+        "paperMode": false,
+        "glyphs": false,
+        "resolutionScale": 1,
+        "autoQuality": false,
+        "trailDensity": 1
+      },
+      "backend": "WebGPUBackend",
+      "tier": {
+        "name": "webgpu",
+        "maxParticles": 1048576,
+        "defaultParticles": 262144,
+        "trailT": 64,
+        "trailCount": 65536,
+        "bloomAllowed": true,
+        "dprCap": 2
+      },
+      "canvas": [
+        2140,
+        1232
+      ],
+      "adapter": {
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "device": "",
+        "description": ""
+      },
+      "glRenderer": null,
+      "particleStride": 4,
+      "trailStride": 4,
+      "trailInstances": 1179648,
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "case": "trails19",
+      "variant": "baseline",
+      "frameMs": {
+        "mean": 16.668333332737287,
+        "p50": 16.699999809265137,
+        "p95": 18.100000143051147,
+        "max": 20.799999952316284,
+        "count": 240
+      },
+      "cpuSubmitMs": {
+        "mean": 1.38583332101504,
+        "p50": 1,
+        "p95": 3.4000000953674316,
+        "max": 4.700000047683716,
+        "count": 240
+      },
+      "gpuComputeMs": {
+        "mean": 0.581632,
+        "p50": 0.589824,
+        "p95": 0.6553599999999999,
+        "max": 0.6553599999999999,
+        "count": 8
+      },
+      "gpuRenderMs": {
+        "mean": 13.901824,
+        "p50": 13.697024,
+        "p95": 17.170431999999998,
+        "max": 17.170431999999998,
+        "count": 8
+      },
+      "gpuSamples": [
+        {
+          "compute": 0.589824,
+          "render": 13.697024
+        },
+        {
+          "compute": 0.589824,
+          "render": 13.828095999999999
+        },
+        {
+          "compute": 0.5242880000000001,
+          "render": 15.007744
+        },
+        {
+          "compute": 0.5242880000000001,
+          "render": 13.1072
+        },
+        {
+          "compute": 0.589824,
+          "render": 13.041664
+        },
+        {
+          "compute": 0.589824,
+          "render": 17.170431999999998
+        },
+        {
+          "compute": 0.6553599999999999,
+          "render": 13.041664
+        },
+        {
+          "compute": 0.589824,
+          "render": 12.320768
+        }
+      ],
+      "memory": {
+        "attributes": 3,
+        "attributesSize": 116,
+        "geometries": 2,
+        "indexAttributes": 1,
+        "indexAttributesSize": 24,
+        "indirectStorageAttributes": 0,
+        "indirectStorageAttributesSize": 0,
+        "programs": 8,
+        "programsSize": 28983,
+        "readbackBuffers": 0,
+        "readbackBuffersSize": 0,
+        "renderTargets": 1,
+        "storageAttributes": 5,
+        "storageAttributesSize": 74448896,
+        "textures": 2,
+        "texturesSize": 31637760,
+        "uniformBuffers": 9,
+        "uniformBuffersSize": 704,
+        "total": 106116483
+      },
+      "draw": {
+        "calls": 756,
+        "frameCalls": 0,
+        "drawCalls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0,
+        "timestamp": 12.320768
+      },
+      "sim": {
+        "integrator": "rk4",
+        "dt": 0.02,
+        "substeps": 4,
+        "timeScale": 1,
+        "paused": false,
+        "particleCount": 262144
+      },
+      "render": {
+        "mode": "trails",
+        "colormap": "inferno",
+        "colorBy": "speed",
+        "colorA": "#1a2b8f",
+        "colorB": "#ff9a3c",
+        "pointSize": 0.7,
+        "opacity": 0.13,
+        "trailLength": 19,
+        "trailWidth": 0.4,
+        "bloom": false,
+        "bloomStrength": 0.8,
+        "paperMode": false,
+        "glyphs": false,
+        "resolutionScale": 1,
+        "autoQuality": false,
+        "trailDensity": 1
+      },
+      "backend": "WebGPUBackend",
+      "tier": {
+        "name": "webgpu",
+        "maxParticles": 1048576,
+        "defaultParticles": 262144,
+        "trailT": 64,
+        "trailCount": 65536,
+        "bloomAllowed": true,
+        "dprCap": 2
+      },
+      "canvas": [
+        2140,
+        1232
+      ],
+      "adapter": {
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "device": "",
+        "description": ""
+      },
+      "glRenderer": null,
+      "particleStride": 4,
+      "trailStride": 4,
+      "trailInstances": 1179648,
+      "errors": []
+    },
+    {
+      "case": "trails64",
+      "variant": "slot-major",
+      "frameMs": {
+        "mean": 33.52291666666667,
+        "p50": 33.10000014305115,
+        "p95": 41.89999985694885,
+        "max": 62.19999980926514,
+        "count": 240
+      },
+      "cpuSubmitMs": {
+        "mean": 2.4691666682561237,
+        "p50": 2.5,
+        "p95": 5.299999952316284,
+        "max": 8.600000143051147,
+        "count": 240
+      },
+      "gpuComputeMs": {
+        "mean": 0.5242880000000001,
+        "p50": 0.45875200000000005,
+        "p95": 0.9830399999999999,
+        "max": 0.9830399999999999,
+        "count": 8
+      },
+      "gpuRenderMs": {
+        "mean": 31.612928,
+        "p50": 31.588352,
+        "p95": 33.75104,
+        "max": 33.75104,
+        "count": 8
+      },
+      "gpuSamples": [
+        {
+          "compute": 0.45875200000000005,
+          "render": 30.932992000000002
+        },
+        {
+          "compute": 0.45875200000000005,
+          "render": 33.75104
+        },
+        {
+          "compute": 0.9830399999999999,
+          "render": 33.685504
+        },
+        {
+          "compute": 0.45875200000000005,
+          "render": 32.047104
+        },
+        {
+          "compute": 0.45875200000000005,
+          "render": 31.588352
+        },
+        {
+          "compute": 0.45875200000000005,
+          "render": 30.605312
+        },
+        {
+          "compute": 0.45875200000000005,
+          "render": 30.343168000000002
+        },
+        {
+          "compute": 0.45875200000000005,
+          "render": 29.949952000000003
+        }
+      ],
+      "memory": {
+        "attributes": 3,
+        "attributesSize": 116,
+        "geometries": 2,
+        "indexAttributes": 1,
+        "indexAttributesSize": 24,
+        "indirectStorageAttributes": 0,
+        "indirectStorageAttributesSize": 0,
+        "programs": 8,
+        "programsSize": 28965,
+        "readbackBuffers": 0,
+        "readbackBuffersSize": 0,
+        "renderTargets": 1,
+        "storageAttributes": 5,
+        "storageAttributesSize": 74448896,
+        "textures": 2,
+        "texturesSize": 31637760,
+        "uniformBuffers": 9,
+        "uniformBuffersSize": 704,
+        "total": 106116465
+      },
+      "draw": {
+        "calls": 738,
+        "frameCalls": 0,
+        "drawCalls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0,
+        "timestamp": 29.949952000000003
+      },
+      "sim": {
+        "integrator": "rk4",
+        "dt": 0.02,
+        "substeps": 4,
+        "timeScale": 1,
+        "paused": false,
+        "particleCount": 262144
+      },
+      "render": {
+        "mode": "trails",
+        "colormap": "inferno",
+        "colorBy": "speed",
+        "colorA": "#1a2b8f",
+        "colorB": "#ff9a3c",
+        "pointSize": 0.7,
+        "opacity": 0.13,
+        "trailLength": 64,
+        "trailWidth": 0.4,
+        "bloom": false,
+        "bloomStrength": 0.8,
+        "paperMode": false,
+        "glyphs": false,
+        "resolutionScale": 1,
+        "autoQuality": false,
+        "trailDensity": 1
+      },
+      "backend": "WebGPUBackend",
+      "tier": {
+        "name": "webgpu",
+        "maxParticles": 1048576,
+        "defaultParticles": 262144,
+        "trailT": 64,
+        "trailCount": 65536,
+        "bloomAllowed": true,
+        "dprCap": 2
+      },
+      "canvas": [
+        2140,
+        1232
+      ],
+      "adapter": {
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "device": "",
+        "description": ""
+      },
+      "glRenderer": null,
+      "particleStride": 4,
+      "trailStride": 4,
+      "trailInstances": 4128768,
+      "errors": []
+    },
+    {
+      "case": "trails64",
+      "variant": "baseline",
+      "frameMs": {
+        "mean": 45.59916666646799,
+        "p50": 45.10000014305115,
+        "p95": 54.5,
+        "max": 76.90000009536743,
+        "count": 240
+      },
+      "cpuSubmitMs": {
+        "mean": 2.309583338101705,
+        "p50": 2.5,
+        "p95": 4.400000095367432,
+        "max": 7.299999952316284,
+        "count": 240
+      },
+      "gpuComputeMs": {
+        "mean": 0.8355840000000001,
+        "p50": 0.6553599999999999,
+        "p95": 1.6383999999999999,
+        "max": 1.6383999999999999,
+        "count": 8
+      },
+      "gpuRenderMs": {
+        "mean": 44.11392,
+        "p50": 43.188224,
+        "p95": 48.955392,
+        "max": 48.955392,
+        "count": 8
+      },
+      "gpuSamples": [
+        {
+          "compute": 1.376256,
+          "render": 40.763392
+        },
+        {
+          "compute": 0.65536,
+          "render": 42.598400000000005
+        },
+        {
+          "compute": 0.589824,
+          "render": 48.955392
+        },
+        {
+          "compute": 0.589824,
+          "render": 44.105728
+        },
+        {
+          "compute": 0.589824,
+          "render": 43.188224
+        },
+        {
+          "compute": 1.6383999999999999,
+          "render": 42.860544000000004
+        },
+        {
+          "compute": 0.6553599999999999,
+          "render": 42.139648
+        },
+        {
+          "compute": 0.589824,
+          "render": 48.300032
+        }
+      ],
+      "memory": {
+        "attributes": 3,
+        "attributesSize": 116,
+        "geometries": 2,
+        "indexAttributes": 1,
+        "indexAttributesSize": 24,
+        "indirectStorageAttributes": 0,
+        "indirectStorageAttributesSize": 0,
+        "programs": 8,
+        "programsSize": 28983,
+        "readbackBuffers": 0,
+        "readbackBuffersSize": 0,
+        "renderTargets": 1,
+        "storageAttributes": 5,
+        "storageAttributesSize": 74448896,
+        "textures": 2,
+        "texturesSize": 31637760,
+        "uniformBuffers": 9,
+        "uniformBuffersSize": 704,
+        "total": 106116483
+      },
+      "draw": {
+        "calls": 734,
+        "frameCalls": 0,
+        "drawCalls": 0,
+        "triangles": 0,
+        "points": 0,
+        "lines": 0,
+        "timestamp": 48.300032
+      },
+      "sim": {
+        "integrator": "rk4",
+        "dt": 0.02,
+        "substeps": 4,
+        "timeScale": 1,
+        "paused": false,
+        "particleCount": 262144
+      },
+      "render": {
+        "mode": "trails",
+        "colormap": "inferno",
+        "colorBy": "speed",
+        "colorA": "#1a2b8f",
+        "colorB": "#ff9a3c",
+        "pointSize": 0.7,
+        "opacity": 0.13,
+        "trailLength": 64,
+        "trailWidth": 0.4,
+        "bloom": false,
+        "bloomStrength": 0.8,
+        "paperMode": false,
+        "glyphs": false,
+        "resolutionScale": 1,
+        "autoQuality": false,
+        "trailDensity": 1
+      },
+      "backend": "WebGPUBackend",
+      "tier": {
+        "name": "webgpu",
+        "maxParticles": 1048576,
+        "defaultParticles": 262144,
+        "trailT": 64,
+        "trailCount": 65536,
+        "bloomAllowed": true,
+        "dprCap": 2
+      },
+      "canvas": [
+        2140,
+        1232
+      ],
+      "adapter": {
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "device": "",
+        "description": ""
+      },
+      "glRenderer": null,
+      "particleStride": 4,
+      "trailStride": 4,
+      "trailInstances": 4128768,
+      "errors": []
+    }
+  ],
+  "memoryBaseline": {
+    "particle-count": {
+      "steps": [
+        {
+          "label": "initial",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 24183,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 576,
+            "total": 39002771
+          }
+        },
+        {
+          "label": "change-1",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 40185,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 8,
+            "storageAttributesSize": 11010048,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 8,
+            "uniformBuffersSize": 688,
+            "total": 42688901
+          }
+        },
+        {
+          "label": "change-2",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 10,
+            "programsSize": 56187,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 12,
+            "storageAttributesSize": 18350080,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 10,
+            "uniformBuffersSize": 800,
+            "total": 50045047
+          }
+        },
+        {
+          "label": "change-3",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 12,
+            "programsSize": 72189,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 16,
+            "storageAttributesSize": 22020096,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 12,
+            "uniformBuffersSize": 912,
+            "total": 53731177
+          }
+        },
+        {
+          "label": "change-4",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 14,
+            "programsSize": 88191,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 20,
+            "storageAttributesSize": 29360128,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 14,
+            "uniformBuffersSize": 1024,
+            "total": 61087323
+          }
+        },
+        {
+          "label": "change-5",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 16,
+            "programsSize": 104193,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 24,
+            "storageAttributesSize": 33030144,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 16,
+            "uniformBuffersSize": 1136,
+            "total": 64773453
+          }
+        },
+        {
+          "label": "change-6",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 18,
+            "programsSize": 120232,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 28,
+            "storageAttributesSize": 40370176,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 18,
+            "uniformBuffersSize": 1248,
+            "total": 72129636
+          }
+        },
+        {
+          "label": "after-gc",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 18,
+            "programsSize": 120232,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 28,
+            "storageAttributesSize": 40370176,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 18,
+            "uniformBuffersSize": 1248,
+            "total": 72129636
+          }
+        }
+      ],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    "trail-density": {
+      "steps": [
+        {
+          "label": "initial",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 116,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 28983,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 5,
+            "storageAttributesSize": 74448896,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 9,
+            "uniformBuffersSize": 704,
+            "total": 106116483
+          }
+        },
+        {
+          "label": "change-1",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 116,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 10,
+            "programsSize": 32006,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 6,
+            "storageAttributesSize": 108003328,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 11,
+            "uniformBuffersSize": 736,
+            "total": 139673970
+          }
+        },
+        {
+          "label": "change-2",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 116,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 12,
+            "programsSize": 35029,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 7,
+            "storageAttributesSize": 175112192,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 13,
+            "uniformBuffersSize": 768,
+            "total": 206785889
+          }
+        },
+        {
+          "label": "change-3",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 116,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 14,
+            "programsSize": 38052,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 8,
+            "storageAttributesSize": 208666624,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 15,
+            "uniformBuffersSize": 800,
+            "total": 240343376
+          }
+        },
+        {
+          "label": "change-4",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 116,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 16,
+            "programsSize": 41075,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 9,
+            "storageAttributesSize": 275775488,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 17,
+            "uniformBuffersSize": 832,
+            "total": 307455295
+          }
+        },
+        {
+          "label": "change-5",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 116,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 18,
+            "programsSize": 44098,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 10,
+            "storageAttributesSize": 309329920,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 19,
+            "uniformBuffersSize": 864,
+            "total": 341012782
+          }
+        },
+        {
+          "label": "change-6",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 116,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 20,
+            "programsSize": 47121,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 11,
+            "storageAttributesSize": 376438784,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 21,
+            "uniformBuffersSize": 896,
+            "total": 408124701
+          }
+        },
+        {
+          "label": "after-gc",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 116,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 20,
+            "programsSize": 47121,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 11,
+            "storageAttributesSize": 376438784,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 21,
+            "uniformBuffersSize": 896,
+            "total": 408124701
+          }
+        }
+      ],
+      "errors": []
+    },
+    "system": {
+      "steps": [
+        {
+          "label": "initial",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 24183,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 576,
+            "total": 39002771
+          }
+        },
+        {
+          "label": "change-1",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 38558,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 8,
+            "uniformBuffersSize": 672,
+            "total": 39017242
+          }
+        },
+        {
+          "label": "change-2",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 38558,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 10,
+            "uniformBuffersSize": 784,
+            "total": 39017354
+          }
+        },
+        {
+          "label": "change-3",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 38558,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 12,
+            "uniformBuffersSize": 880,
+            "total": 39017450
+          }
+        },
+        {
+          "label": "change-4",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 38558,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 14,
+            "uniformBuffersSize": 992,
+            "total": 39017562
+          }
+        },
+        {
+          "label": "change-5",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 38558,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 16,
+            "uniformBuffersSize": 1088,
+            "total": 39017658
+          }
+        },
+        {
+          "label": "change-6",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 38558,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 18,
+            "uniformBuffersSize": 1200,
+            "total": 39017770
+          }
+        },
+        {
+          "label": "after-gc",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 38558,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 18,
+            "uniformBuffersSize": 1200,
+            "total": 39017770
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  "memoryCleanupPrototype": {
+    "particle-count": {
+      "steps": [
+        {
+          "label": "initial",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 24183,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 576,
+            "total": 39002771
+          }
+        },
+        {
+          "label": "change-1",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 24220,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 3670016,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 576,
+            "total": 35332792
+          }
+        },
+        {
+          "label": "change-2",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 24220,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 576,
+            "total": 39002808
+          }
+        },
+        {
+          "label": "change-3",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 24220,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 3670016,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 576,
+            "total": 35332792
+          }
+        },
+        {
+          "label": "change-4",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 24220,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 576,
+            "total": 39002808
+          }
+        },
+        {
+          "label": "change-5",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 24220,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 3670016,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 576,
+            "total": 35332792
+          }
+        },
+        {
+          "label": "change-6",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 24257,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 576,
+            "total": 39002845
+          }
+        },
+        {
+          "label": "after-gc",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 24257,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 576,
+            "total": 39002845
+          }
+        }
+      ],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    "trail-density": {
+      "steps": [
+        {
+          "label": "initial",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 116,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 28983,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 5,
+            "storageAttributesSize": 74448896,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 9,
+            "uniformBuffersSize": 704,
+            "total": 106116483
+          }
+        },
+        {
+          "label": "change-1",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 116,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 28983,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 5,
+            "storageAttributesSize": 40894464,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 9,
+            "uniformBuffersSize": 704,
+            "total": 72562051
+          }
+        },
+        {
+          "label": "change-2",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 116,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 28983,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 5,
+            "storageAttributesSize": 74448896,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 9,
+            "uniformBuffersSize": 704,
+            "total": 106116483
+          }
+        },
+        {
+          "label": "change-3",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 116,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 28983,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 5,
+            "storageAttributesSize": 40894464,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 9,
+            "uniformBuffersSize": 704,
+            "total": 72562051
+          }
+        },
+        {
+          "label": "change-4",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 116,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 28983,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 5,
+            "storageAttributesSize": 74448896,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 9,
+            "uniformBuffersSize": 704,
+            "total": 106116483
+          }
+        },
+        {
+          "label": "change-5",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 116,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 28983,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 5,
+            "storageAttributesSize": 40894464,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 9,
+            "uniformBuffersSize": 704,
+            "total": 72562051
+          }
+        },
+        {
+          "label": "change-6",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 116,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 28983,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 5,
+            "storageAttributesSize": 74448896,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 9,
+            "uniformBuffersSize": 704,
+            "total": 106116483
+          }
+        },
+        {
+          "label": "after-gc",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 116,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 8,
+            "programsSize": 28983,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 5,
+            "storageAttributesSize": 74448896,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 9,
+            "uniformBuffersSize": 704,
+            "total": 106116483
+          }
+        }
+      ],
+      "errors": []
+    },
+    "system": {
+      "steps": [
+        {
+          "label": "initial",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 24183,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 576,
+            "total": 39002771
+          }
+        },
+        {
+          "label": "change-1",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 22593,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 560,
+            "total": 39001165
+          }
+        },
+        {
+          "label": "change-2",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 24183,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 576,
+            "total": 39002771
+          }
+        },
+        {
+          "label": "change-3",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 22593,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 560,
+            "total": 39001165
+          }
+        },
+        {
+          "label": "change-4",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 24183,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 576,
+            "total": 39002771
+          }
+        },
+        {
+          "label": "change-5",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 22593,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 560,
+            "total": 39001165
+          }
+        },
+        {
+          "label": "change-6",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 24183,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 576,
+            "total": 39002771
+          }
+        },
+        {
+          "label": "after-gc",
+          "memory": {
+            "attributes": 3,
+            "attributesSize": 196,
+            "geometries": 2,
+            "indexAttributes": 1,
+            "indexAttributesSize": 24,
+            "indirectStorageAttributes": 0,
+            "indirectStorageAttributesSize": 0,
+            "programs": 6,
+            "programsSize": 24183,
+            "readbackBuffers": 0,
+            "readbackBuffersSize": 0,
+            "renderTargets": 1,
+            "storageAttributes": 4,
+            "storageAttributesSize": 7340032,
+            "textures": 2,
+            "texturesSize": 31637760,
+            "uniformBuffers": 6,
+            "uniformBuffersSize": 576,
+            "total": 39002771
+          }
+        }
+      ],
+      "errors": []
+    }
+  },
+  "visualComparisons": {
+    "cleanup": {
+      "particle-count": {
+        "width": 2140,
+        "height": 1232,
+        "identicalRgbaPixels": true,
+        "baselinePixelSha256": "61378c2adc832c5bcfe4fa2a04ba29c67eaeb1427a54e92e0b39ee42fc2237cb",
+        "prototypePixelSha256": "61378c2adc832c5bcfe4fa2a04ba29c67eaeb1427a54e92e0b39ee42fc2237cb"
+      },
+      "trail-density": {
+        "width": 2140,
+        "height": 1232,
+        "identicalRgbaPixels": true,
+        "baselinePixelSha256": "ffdef68187e5158673b072991e1ce16c4fd73507cf0153a2c8040872a628b480",
+        "prototypePixelSha256": "ffdef68187e5158673b072991e1ce16c4fd73507cf0153a2c8040872a628b480"
+      },
+      "system": {
+        "width": 2140,
+        "height": 1232,
+        "identicalRgbaPixels": true,
+        "baselinePixelSha256": "61378c2adc832c5bcfe4fa2a04ba29c67eaeb1427a54e92e0b39ee42fc2237cb",
+        "prototypePixelSha256": "61378c2adc832c5bcfe4fa2a04ba29c67eaeb1427a54e92e0b39ee42fc2237cb"
+      }
+    },
+    "layout": {
+      "trails19": {
+        "width": 2140,
+        "height": 1232,
+        "identicalRgbaPixels": true,
+        "baselinePixelSha256": "4980cbd86a5a0fdd0cb4fb0f3e0384fbeb35a3878640978df344fb5960bc1084",
+        "prototypePixelSha256": "4980cbd86a5a0fdd0cb4fb0f3e0384fbeb35a3878640978df344fb5960bc1084"
+      },
+      "trails64": {
+        "width": 2140,
+        "height": 1232,
+        "identicalRgbaPixels": true,
+        "baselinePixelSha256": "32051ed70f9ae6d16a8298095fc86495380634403f2cb5b4ae25c346d4c0fcf0",
+        "prototypePixelSha256": "32051ed70f9ae6d16a8298095fc86495380634403f2cb5b4ae25c346d4c0fcf0"
+      },
+      "webgl-trails": {
+        "width": 2140,
+        "height": 1232,
+        "identicalRgbaPixels": true,
+        "baselinePixelSha256": "889f25371c795f8d69795de591585ae8b971bc403cec8adffb6c7b0600b2c735",
+        "prototypePixelSha256": "889f25371c795f8d69795de591585ae8b971bc403cec8adffb6c7b0600b2c735"
+      }
+    },
+    "layoutReverse": {
+      "trails19": {
+        "width": 2140,
+        "height": 1232,
+        "identicalRgbaPixels": true,
+        "baselinePixelSha256": "4980cbd86a5a0fdd0cb4fb0f3e0384fbeb35a3878640978df344fb5960bc1084",
+        "prototypePixelSha256": "4980cbd86a5a0fdd0cb4fb0f3e0384fbeb35a3878640978df344fb5960bc1084"
+      },
+      "trails64": {
+        "width": 2140,
+        "height": 1232,
+        "identicalRgbaPixels": true,
+        "baselinePixelSha256": "32051ed70f9ae6d16a8298095fc86495380634403f2cb5b4ae25c346d4c0fcf0",
+        "prototypePixelSha256": "32051ed70f9ae6d16a8298095fc86495380634403f2cb5b4ae25c346d4c0fcf0"
+      }
+    }
+  },
+  "fallbackObservation": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/129.0.0.0 Safari/537.36",
+    "backend": "WebGLBackend",
+    "webgpu": null,
+    "adapter": null,
+    "features": [],
+    "canvas": [
+      2140,
+      1232
+    ],
+    "sim": {
+      "integrator": "rk4",
+      "dt": 0.02,
+      "substeps": 4,
+      "timeScale": 1,
+      "paused": true,
+      "particleCount": 262144
+    },
+    "render": {
+      "mode": "points",
+      "colormap": "inferno",
+      "colorBy": "speed",
+      "colorA": "#1a2b8f",
+      "colorB": "#ff9a3c",
+      "pointSize": 0.7,
+      "opacity": 0.13,
+      "trailLength": 19,
+      "trailWidth": 0.4,
+      "bloom": false,
+      "bloomStrength": 0.8,
+      "paperMode": false,
+      "glyphs": false,
+      "resolutionScale": 1,
+      "autoQuality": false,
+      "trailDensity": 1
+    },
+    "memory": {
+      "attributes": 3,
+      "attributesSize": 196,
+      "geometries": 2,
+      "indexAttributes": 1,
+      "indexAttributesSize": 12,
+      "indirectStorageAttributes": 0,
+      "indirectStorageAttributesSize": 0,
+      "programs": 5,
+      "programsSize": 12607,
+      "readbackBuffers": 0,
+      "readbackBuffersSize": 0,
+      "renderTargets": 1,
+      "storageAttributes": 3,
+      "storageAttributesSize": 5242880,
+      "textures": 6,
+      "texturesSize": 37929216,
+      "uniformBuffers": 5,
+      "uniformBuffersSize": 480,
+      "total": 43185391
+    }
+  },
+  "validation": {
+    "existingRegressionTests": "8 passed",
+    "productionBuild": "passed with Node 24.22.1",
+    "sourceChanges": "none"
+  }
+}
