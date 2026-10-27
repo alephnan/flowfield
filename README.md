@@ -23,7 +23,7 @@ The interface follows the [RGH portfolio](https://alephnan.github.io/projects/):
 
 ## Prerequisites
 
-- Node.js 20.19+ or 22.12+ and npm (required by the installed Vite version)
+- Node.js 24.22.1+ within the 24.x LTS line and npm (includes the CVE-2026-111497 fix)
 - A browser with WebGPU for the full experience (recent Chrome/Edge). Any WebGL2 browser works on the fallback path.
 
 ## Getting started (development)
